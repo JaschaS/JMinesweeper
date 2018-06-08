@@ -1,0 +1,17 @@
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellOpenTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellPositionHashTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldGetFieldTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldCtorTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldOpenTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldValidPositionTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellEqualTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellPositionEqualTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldCornerNeighboursTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldNeighboursTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/GameCreatorTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldFlagCellTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellMarkAsMineTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/MinefieldMooreNeighbourhood.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellNeighbourTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellIncreaseNumberTest.java
+/Volumes/FILEs/workspace/JMinesweeper/src/test/java/de/jscholz/jminesweeper/minesweeper/CellHashCodeTest.java

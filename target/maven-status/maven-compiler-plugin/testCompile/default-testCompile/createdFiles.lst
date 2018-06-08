@@ -1,0 +1,17 @@
+de/jscholz/jminesweeper/minesweeper/CellHashCodeTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldNeighboursTest.class
+de/jscholz/jminesweeper/minesweeper/GameCreatorTest.class
+de/jscholz/jminesweeper/minesweeper/CellMarkAsMineTest.class
+de/jscholz/jminesweeper/minesweeper/CellPositionHashTest.class
+de/jscholz/jminesweeper/minesweeper/CellNeighbourTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldOpenTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldFlagCellTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldCtorTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldGetFieldTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldCornerNeighboursTest.class
+de/jscholz/jminesweeper/minesweeper/CellPositionEqualTest.class
+de/jscholz/jminesweeper/minesweeper/CellEqualTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldValidPositionTest.class
+de/jscholz/jminesweeper/minesweeper/CellOpenTest.class
+de/jscholz/jminesweeper/minesweeper/MinefieldMooreNeighbourhood.class
+de/jscholz/jminesweeper/minesweeper/CellIncreaseNumberTest.class
