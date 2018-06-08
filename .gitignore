@@ -1,0 +1,12 @@
+# Ignore .class files
+*.class
+
+# Ignore .idea
+.DS_Store
+.idea
+
+# Ignore target
+target/*
+
+# Ignore iml files
+*.iml
