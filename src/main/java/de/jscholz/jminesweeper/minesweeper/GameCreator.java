@@ -1,7 +1,7 @@
 package de.jscholz.jminesweeper.minesweeper;
 
 /**
- * A simple Factory-Pattern which creates a minesweeper game.
+ * A simple Static-Factory-Pattern which creates a minesweeper game.
  */
 public class GameCreator {
 
@@ -13,27 +13,27 @@ public class GameCreator {
     public static final int MAX_MINES_PERCENT = 93;
 
     /**
-     * Creates a beginner game with the properties 8x8x8 - rows x cols x minesPer.
+     * Creates a beginner game with the difficult setting EASY.
      * @return a beginner minesweeper game.
      */
     public static IMinefield createBeginnerGame() {
-        return new Minefield(8, 8, 16);
+        return new Minefield(Difficulty.EASY);
     }
 
     /**
-     * Creates a experienced game with the properties 16x16x16 - rows x cols x minesPer.
+     * Creates a experienced game with the difficult setting EXPERIENCED.
      * @return a experienced minesweeper game.
      */
     public static IMinefield createExperiencedGame() {
-        return new Minefield(16,16, 16);
+        return new Minefield(Difficulty.EXPERIENCED);
     }
 
     /**
-     * Creates a expert game with the properties 30x16x21 - rows x cols x minesPer.
+     * Creates a expert game with the difficult setting EXPERT.
      * @return a expert minesweeper game.
      */
     public static IMinefield createExpertGame() {
-        return new Minefield(30, 16, 21);
+        return new Minefield(Difficulty.EXPERT);
     }
 
     /**

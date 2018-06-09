@@ -74,6 +74,14 @@ class Minefield implements IMinefield {
     }
 
     /**
+     * Custom-Ctor creates a minefield with the given difficult setting.
+     * @param setting the difficult setting for the minefield.
+     */
+    public Minefield(final Difficulty setting) {
+        this(setting.getRows(), setting.getColumns(), setting.getMinesPercent());
+    }
+
+    /**
      * Custom-Ctor creates a minefield with the given parameter.
      * @param rows the rows of the field.
      * @param columns the columns of the field.
@@ -245,7 +253,7 @@ class Minefield implements IMinefield {
         final int pY = position.getY();
         final ArrayList<Cell> neighbours = new ArrayList<>();
 
-        /**
+        /*
          * We calculate the moore-neighbourhood, which is:
          * tl t tr
          * l  p  r
@@ -260,7 +268,7 @@ class Minefield implements IMinefield {
          */
         for(int y=-1; y < 2; ++y) {
 
-            /**
+            /*
              * when y is 0 we only want to check the left and the right position.
              * Therefore we need to change the step of the inner-loop.
              */
