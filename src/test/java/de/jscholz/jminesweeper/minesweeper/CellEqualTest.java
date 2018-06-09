@@ -27,8 +27,8 @@ public class CellEqualTest {
     @Parameterized.Parameters(name = "{index}: testAdd({0}+{1}) = {2}")
     public static Collection<Object[]> data() {
         final Cell c = new Cell();
-        c.setContent(ICell.CellContent.EIGHT);
-        c.setState(ICell.CellState.FLAGGED);
+        c.setContent(CellContent.EIGHT);
+        c.setState(CellState.FLAGGED);
         return Arrays.asList(new Object[][]{
                 { new Cell(), null, false, false},
                 { new Cell(), new Object(), false, false},

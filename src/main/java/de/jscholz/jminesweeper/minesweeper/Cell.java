@@ -33,7 +33,7 @@ class Cell implements ICell {
     private CellState state;
 
     /**
-     * Default-Ctor creates a cell with no neighbours, position (x=0, y=0), content unknown and cell state undiscovered.
+     * Default-Ctor creates a cell with no neighbours, position (x=0, y=0), content empty and cell state undiscovered.
      */
     public Cell() {
         this(new CellPosition());
@@ -59,7 +59,7 @@ class Cell implements ICell {
     public Cell(final ICellPosition position) {
         this.position = position;
         this.neighbours = new HashSet<>();
-        this.content = CellContent.UNKNOWN;
+        this.content = CellContent.EMPTY;
         this.state = CellState.UNDISCOVERED;
     }
 
@@ -126,7 +126,7 @@ class Cell implements ICell {
      */
     public void increaseNumber() {
         //We increase here the number inside the content. If the cell is a mine or a eight, do nothing.
-        if(content != CellContent.MINE && content != CellContent.EIGHT) {
+        if(content != CellContent.MINE && content != CellContent.EIGHT && content != CellContent.UNKNOWN) {
 
             //getNext points to the next number inside the enum.
             content = content.getNext();
