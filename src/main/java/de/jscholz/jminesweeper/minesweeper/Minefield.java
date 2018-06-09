@@ -114,7 +114,8 @@ class Minefield implements IMinefield {
         return openCell(position, flagCellReturnStates);
     }
 
-    public Map<ICellPosition, ICell> getField() {
+    @Override
+    public Map<ICellPosition, ICell> getFieldForVisualization() {
         final HashMap<ICellPosition, ICell> copyField = new HashMap<>();
 
         //Create Map with same CellPositions, but with different cell for visualisation.
@@ -139,6 +140,7 @@ class Minefield implements IMinefield {
         return Collections.unmodifiableMap(field);
     }
 
+    @Override
     public Set<ICell> getUpdateCells() {
         return this.updatedCells;
     }
@@ -149,15 +151,18 @@ class Minefield implements IMinefield {
         return this.field.containsKey(position);
     }
 
+    @Override
     public boolean gameOver() {
         return this.isGameOver;
     }
 
-    public OpenReturn open(int x, int y) {
-        return open(new CellPosition(x, y));
+    @Override
+    public OpenReturn singleClick(int x, int y) {
+        return singleClick(new CellPosition(x, y));
     }
 
-    public OpenReturn open(final ICellPosition position) {
+    @Override
+    public OpenReturn singleClick(final ICellPosition position) {
         return openCell(position, singleClickReturnStates);
     }
 
@@ -182,18 +187,22 @@ class Minefield implements IMinefield {
         return returnStates.get(state).open(cell);
     }
 
+    @Override
     public int getTotalMines() {
         return this.totalAmountOfMines;
     }
 
+    @Override
     public int getAmountOfFlags() {
         return this.placedFlags;
     }
 
+    @Override
     public int getRows() {
         return this.rows;
     }
 
+    @Override
     public int getColumns() {
         return this.columns;
     }

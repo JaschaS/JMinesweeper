@@ -1,7 +1,7 @@
 package de.jscholz.jminesweeper.minesweeper;
 
 /**
- * <p>The enum which represents the cell state.</p>
+ * <p>This enum represents the cell state.</p>
  * <p>There are only three states a cell can have:</p>
  * <ul>
  * <li>UNDISCOVERED, when a cell content is still unknown to the user.</li>

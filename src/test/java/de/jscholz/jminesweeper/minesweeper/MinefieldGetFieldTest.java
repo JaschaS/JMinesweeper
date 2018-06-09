@@ -12,7 +12,7 @@ public class MinefieldGetFieldTest {
         final IMinefield m = GameCreator.createBeginnerGame();
 
         //Get the field for visualisation.
-        final Map<ICellPosition, ICell> f = m.getField();
+        final Map<ICellPosition, ICell> f = m.getFieldForVisualization();
 
         //Get the field the game is using.
         final Map<ICellPosition, Cell> original = ((Minefield)m).getOriginalField();
@@ -38,8 +38,8 @@ public class MinefieldGetFieldTest {
             Assert.assertFalse(c.equals(oc));
 
             //the cells the visual-field should be empty, be state undiscovered.
-            Assert.assertTrue(c.getContent() == ICell.CellContent.EMPTY);
-            Assert.assertTrue(c.getCellState() == ICell.CellState.UNDISCOVERED);
+            Assert.assertTrue(c.getContent() == CellContent.EMPTY);
+            Assert.assertTrue(c.getCellState() == CellState.UNDISCOVERED);
 
             //The amount of neighbours should be the same.
             Assert.assertTrue(((Cell)c).getNeighbours().size() != oc.getNeighbours().size());

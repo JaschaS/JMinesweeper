@@ -3,7 +3,6 @@ package de.jscholz.jminesweeper.minesweeper;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public class MinefieldCtorTest {
     @Test
     public void checkNeighbourNumberTest() {
         final IMinefield field = GameCreator.createBeginnerGame();
-        final Map<ICellPosition, ICell> f = field.getField();
+        final Map<ICellPosition, ICell> f = field.getFieldForVisualization();
 
         for(ICell c : f.values()) {
             final CellContent content = c.getContent();
