@@ -50,7 +50,7 @@ enum Difficulty {
     }
 
     /**
-     * Returns the row size of the minfield for this difficult setting.
+     * Returns the row size of the minefield for this difficult setting.
      * @return the row size.
      */
     public int getRows() {
