@@ -16,7 +16,7 @@ public class MinefieldCtorTest {
 
         int amount = 10;
         for(final ICell c : f.values()) {
-            if(c.getContent() == ICell.CellContent.MINE) --amount;
+            if(c.getContent() == CellContent.MINE) --amount;
         }
 
         Assert.assertEquals(0, amount);
@@ -28,13 +28,13 @@ public class MinefieldCtorTest {
         final Map<ICellPosition, ICell> f = field.getField();
 
         for(ICell c : f.values()) {
-            final ICell.CellContent content = c.getContent();
+            final CellContent content = c.getContent();
 
             /*
              * Check the mine only, when the content is a number.
              */
-            if(content != ICell.CellContent.MINE && content != ICell.CellContent.EMPTY) {
-                final int number = content.getNumber();
+            if(content != CellContent.MINE && content != CellContent.EMPTY) {
+                final int number = content.getMinesInNeighbourhood();
                 final Set<Cell> neighbours = ((Cell) c).getNeighbours();
 
                 /*
@@ -42,7 +42,7 @@ public class MinefieldCtorTest {
                  */
                 int amountOfMinesInNeighbourhood = 0;
                 for(final Cell nc : neighbours) {
-                    boolean isMine = nc.getContent() == ICell.CellContent.MINE;
+                    boolean isMine = nc.getContent() == CellContent.MINE;
                     if (isMine) ++amountOfMinesInNeighbourhood;
                 }
 

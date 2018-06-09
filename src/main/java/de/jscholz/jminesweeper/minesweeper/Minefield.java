@@ -10,8 +10,8 @@ class Minefield implements IMinefield {
 
     private final HashMap<ICellPosition, Cell> field;
     private final HashSet<ICell> updatedCells;
-    private final HashMap<ICell.CellState, OpenCell> singleClickReturnStates;
-    private final HashMap<ICell.CellState, OpenCell> flagCellReturnStates;
+    private final HashMap<CellState, OpenCell> singleClickReturnStates;
+    private final HashMap<CellState, OpenCell> flagCellReturnStates;
     private final int totalAmountOfMines;
     private final int rows;
     private final int columns;
@@ -26,15 +26,15 @@ class Minefield implements IMinefield {
 
         this.updatedCells = new HashSet<>();
         this.singleClickReturnStates = new HashMap<>();
-        this.singleClickReturnStates.put(ICell.CellState.OPEN, (final Cell cell) -> OpenReturn.IS_ALREADY_OPEN);
-        this.singleClickReturnStates.put(ICell.CellState.FLAGGED, (final Cell cell) -> OpenReturn.WAS_FLAGGED);
-        this.singleClickReturnStates.put(ICell.CellState.UNDISCOVERED, (final Cell cell) -> {
+        this.singleClickReturnStates.put(CellState.OPEN, (final Cell cell) -> OpenReturn.IS_ALREADY_OPEN);
+        this.singleClickReturnStates.put(CellState.FLAGGED, (final Cell cell) -> OpenReturn.WAS_FLAGGED);
+        this.singleClickReturnStates.put(CellState.UNDISCOVERED, (final Cell cell) -> {
 
             //Get the current cell content. We expect that this content is not null.
-            final ICell.CellContent content = cell.getContent();
+            final CellContent content = cell.getContent();
             assert content != null : "Content of Cell " + cell + " is null!";
 
-            if(content == ICell.CellContent.MINE) {
+            if(content == CellContent.MINE) {
                 setGameOver();
                 return OpenReturn.WAS_MINE;
             }
@@ -52,24 +52,24 @@ class Minefield implements IMinefield {
         });
 
         this.flagCellReturnStates = new HashMap<>();
-        this.flagCellReturnStates.put(ICell.CellState.OPEN, (final Cell cell) -> OpenReturn.IS_ALREADY_OPEN);
-        this.flagCellReturnStates.put(ICell.CellState.FLAGGED, (final Cell cell) -> {
+        this.flagCellReturnStates.put(CellState.OPEN, (final Cell cell) -> OpenReturn.IS_ALREADY_OPEN);
+        this.flagCellReturnStates.put(CellState.FLAGGED, (final Cell cell) -> {
             /*cell.setState(ICell.CellState.UNDISCOVERED);
             --this.placedFlags;
 
             this.updatedCells.add(cell);
 
             return OpenReturn.REMOVE_FLAG;*/
-            return flagCell(cell, ICell.CellState.FLAGGED, OpenReturn.REMOVE_FLAG);
+            return flagCell(cell, CellState.FLAGGED, OpenReturn.REMOVE_FLAG);
         });
-        this.flagCellReturnStates.put(ICell.CellState.UNDISCOVERED, (final Cell cell) -> {
+        this.flagCellReturnStates.put(CellState.UNDISCOVERED, (final Cell cell) -> {
             /*cell.setState(ICell.CellState.FLAGGED);
             ++this.placedFlags;
 
             this.updatedCells.add(cell);
 
             return OpenReturn.NOW_FLAGGED;*/
-            return flagCell(cell, ICell.CellState.UNDISCOVERED, OpenReturn.NOW_FLAGGED);
+            return flagCell(cell, CellState.UNDISCOVERED, OpenReturn.NOW_FLAGGED);
         });
     }
 
@@ -161,7 +161,7 @@ class Minefield implements IMinefield {
         return openCell(position, singleClickReturnStates);
     }
 
-    private OpenReturn openCell(final ICellPosition position, final HashMap<ICell.CellState, OpenCell> returnStates) {
+    private OpenReturn openCell(final ICellPosition position, final HashMap<CellState, OpenCell> returnStates) {
 
         if(gameOver()) return OpenReturn.GAME_IS_ALREADY_OVER;
 
@@ -176,7 +176,7 @@ class Minefield implements IMinefield {
         assert cell != null : "Cell " + cell + " should not be null!";
 
         //Get the current cell state. We expect that this state is not null.
-        final ICell.CellState state = cell.getCellState();
+        final CellState state = cell.getCellState();
         assert state != null : "State of Cell " + cell + " is null!";
 
         return returnStates.get(state).open(cell);
@@ -311,13 +311,13 @@ class Minefield implements IMinefield {
         }
     }
 
-    private OpenReturn flagCell(final Cell cell, final ICell.CellState state, final OpenReturn returnValue) {
-        if(state == ICell.CellState.FLAGGED) {
-            cell.setState(ICell.CellState.UNDISCOVERED);
+    private OpenReturn flagCell(final Cell cell, final CellState state, final OpenReturn returnValue) {
+        if(state == CellState.FLAGGED) {
+            cell.setState(CellState.UNDISCOVERED);
             --this.placedFlags;
         }
-        else if(state == ICell.CellState.UNDISCOVERED) {
-            cell.setState(ICell.CellState.FLAGGED);
+        else if(state == CellState.UNDISCOVERED) {
+            cell.setState(CellState.FLAGGED);
             ++this.placedFlags;
         }
 
