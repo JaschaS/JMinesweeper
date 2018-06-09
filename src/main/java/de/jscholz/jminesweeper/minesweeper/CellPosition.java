@@ -1,7 +1,7 @@
 package de.jscholz.jminesweeper.minesweeper;
 
 /**
- * The implementation of the ICellPosition. It will represent the positions of cells within the minefield.
+ * <p>The implementation of the ICellPosition. It will represent the positions of cells within the minefield.</p>
  */
 class CellPosition implements ICellPosition {
 
@@ -42,11 +42,19 @@ class CellPosition implements ICellPosition {
         return y;
     }
 
-    public void setX(int x) {
+    /**
+     * Sets the x value of the position.
+     * @param x The new x position.
+     */
+    public void setX(final int x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    /**
+     * Sets the y value of the position.
+     * @param y The new y position.
+     */
+    public void setY(final int y) {
         this.y = y;
     }
 
