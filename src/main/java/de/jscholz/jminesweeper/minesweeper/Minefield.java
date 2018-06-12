@@ -16,7 +16,13 @@ class Minefield implements IMinefield {
      * This set will contain all cells which where updated in the last single click, double click or secondary click.
      */
     private final HashSet<ICell> updatedCells;
+    /**
+     * State return values for the single click.
+     */
     private final HashMap<CellState, ClickReturnStates> singleClickReturnStates;
+    /**
+     * State return values for the secondary click.
+     */
     private final HashMap<CellState, ClickReturnStates> secondaryClickReturnStates;
     /**
      * The total amount of mines within the minefield.
