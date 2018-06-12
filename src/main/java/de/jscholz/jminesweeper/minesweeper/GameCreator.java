@@ -80,6 +80,9 @@ public final class GameCreator {
      * Creates a custom game with the given properties. If the properties are not valid, the method will clamp the
      * given values.
      *
+     * @param columns The amount of columns the minefield should have.
+     * @param rows The amount of rows the minefield should have.
+     * @param minesPercent The percentage of mines inside the minefield.
      * @return A custom minesweeper game.
      */
     public static IMinefield createCustomGame(int rows, int columns, int minesPercent) {

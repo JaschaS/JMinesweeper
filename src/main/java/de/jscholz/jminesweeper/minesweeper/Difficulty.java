@@ -1,7 +1,7 @@
 package de.jscholz.jminesweeper.minesweeper;
 
 /**
- * The difficulty of the jminesweeper game which are possible.
+ * All predefined difficulty settings for the minesweeper game.
  */
 enum Difficulty {
     /**
@@ -23,9 +23,9 @@ enum Difficulty {
 
     /**
      * Creates a difficult setting which can be use to create a minefield.
-     * @param rows the amount of rows in the minefield.
-     * @param columns the amount of columns in the minefield.
-     * @param minesPercent the percentage of mines inside the minefield.
+     * @param rows The amount of rows in the minefield.
+     * @param columns The amount of columns in the minefield.
+     * @param minesPercent The percentage of mines inside the minefield.
      */
     Difficulty(final int rows, final int columns, final int minesPercent) {
         this.rows = rows;
@@ -35,7 +35,7 @@ enum Difficulty {
 
     /**
      * Returns the column size of the minefield for this difficult setting.
-     * @return the column size.
+     * @return The column size.
      */
     public int getColumns() {
         return columns;
@@ -43,7 +43,7 @@ enum Difficulty {
 
     /**
      * Get the mines inside the minefield in percent for this difficult setting.
-     * @return the percentage of mines inside the minefield.
+     * @return The percentage of mines inside the minefield.
      */
     public int getMinesPercent() {
         return minesPercent;
@@ -51,7 +51,7 @@ enum Difficulty {
 
     /**
      * Returns the row size of the minefield for this difficult setting.
-     * @return the row size.
+     * @return The row size.
      */
     public int getRows() {
         return rows;
