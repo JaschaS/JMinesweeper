@@ -1,26 +1,39 @@
 package de.jscholz.jminesweeper.minesweeper;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * The interface which represents the cell inside a minefield.
- * Each cell has different properties:
- * - A cell has one state, which represents if the cell was already discovered, opened or if the cell was flagged.
- * - Each cell contains a list with neighbour cells in the moore neighborhood.
- * - A cell contains exactly one content-type.
+ * <p>The interface which represents the cell inside a minefield.</p>
+ * <p>Each cell has different properties:</p>
+ * <ul>
+ * <li>A cell has one state, which represents if the cell was already discovered, opened or if the cell was flagged.</li>
+ * <li>Each cell contains a list of neighbor cells in the Moore neighborhood.</li>
+ * <li>A cell contains exactly one content-type.</li>
+ * </ul>
  */
 class Cell implements ICell {
 
+    /**
+     * The list which contains all cells in the Moore neighborhood.
+     */
     private final Set<Cell> neighbours;
+    /**
+     * The cell position.
+     */
     private final ICellPosition position;
+    /**
+     * The content of the cell.
+     */
     private CellContent content;
+    /**
+     * The state of the cell.
+     */
     private CellState state;
 
     /**
-     * Default-Ctor creates a cell with position x=0, y=0,
+     * Default-Ctor creates a cell with no neighbours, position (x=0, y=0), content empty and cell state undiscovered.
      */
     public Cell() {
         this(new CellPosition());
@@ -79,6 +92,48 @@ class Cell implements ICell {
     }
 
     /**
+     * <p>Tries to performAction the cell. If the cell is already discovered, nothing will happen. Otherwise, the cell state will
+     * be changed to <i>OPEN</i> and the cell will be added to the set <i>openedCells</i>. If the cell content is empty,
+     * all cells in the neighborhood will also be opened.
+     * </p>
+     * <p>If the set <i>openenCells</i> is null, an null pointer exception will be raised.</p>
+     * @param openedCells The set the cell should be added to.
+     * @throws NullPointerException If the given set is null, an null pointer exception will be raised.
+     */
+    public void open(final Set<ICell> openedCells) throws NullPointerException {
+
+        if(openedCells == null) throw new NullPointerException("Given Set is null");
+
+        if(state == CellState.UNDISCOVERED) {
+            openedCells.add(this);
+            state = CellState.OPEN;
+
+            //Only performAction when the content is empty.
+            if(content == CellContent.EMPTY) {
+                for (final Cell c : neighbours) {
+                    c.open(openedCells);
+                }
+            }
+        }
+    }
+
+    /**
+     * <p>Updates the content of this cell.</p>
+     * <ul>
+     * <li>if the cell is empty it will get the content one, if the cell content is one, it will get the two. And so on.</li>
+     * <li>if the content is mine, nothing should happen.</li>
+     * </ul>
+     */
+    public void increaseNumber() {
+        //We increase here the number inside the content. If the cell is a mine or a eight, do nothing.
+        if(content != CellContent.MINE && content != CellContent.EIGHT && content != CellContent.UNKNOWN) {
+
+            //getNext points to the next number inside the enum.
+            content = content.getNext();
+        }
+    }
+
+    /**
      * Changes the state of the cell.
      * @param state the new state.
      */
@@ -95,8 +150,10 @@ class Cell implements ICell {
     }
 
     /**
-     * If this cell contains a mines, the neighbours need to be updated about this change.
-     * This method should be called when the minefield gets initialized.
+     * <p>Tries to mark the cell as mine. If the content is not already a mine, the content will be set and all
+     * neighbours will be informed that this cell is now a mine. The neighbours will then increase their number.</p>
+     * <p>This method should be called when the minefield gets initialized.</p>
+     * @return True, if the cell content is now a mine. False, if the cell was already a mine.
      */
     public boolean markAsMine() {
 
@@ -115,46 +172,24 @@ class Cell implements ICell {
         return false;
     }
 
-    public void open(final Set<ICell> openedCells) throws NullPointerException {
-
-        if(openedCells == null) throw new NullPointerException("Given Set is null");
-
-        if(state == CellState.UNDISCOVERED) {
-            openedCells.add(this);
-            state = CellState.OPEN;
-
-            //Only open when the content is empty.
-            if(content == CellContent.EMPTY) {
-                for (final Cell c : neighbours) {
-                    c.open(openedCells);
-                }
-            }
-        }
-    }
-
-    /**
-     * Updates the content of this cell.
-     * if the cell is empty it will get the content one, if the cell content is one, it will get the two. And so on.
-     * if the content is mine, nothing should happen.
-     */
-    public void increaseNumber() {
-        //We increase here the number inside the content. If the cell is a mine or a eight, do nothing.
-        if(content != CellContent.MINE && content != CellContent.EIGHT) {
-
-            //getNext points to the next number inside the enum.
-            content = content.getNext();
-        }
-    }
-
+    @Override
     public ICellPosition getPosition() {
         return this.position;
     }
 
     /**
-     * Adds a neighbour to the cell.
+     * <p>
+     *     Tries to add the given cell to the neighborhood.
+     * </p>
+     * <p> Fails:</p>
+     * <ul>
+     *     <li>When the given cell is null.</li>
+     *     <li>When the given cell is already in the neighborhood.</li>
+     *     <li>When the given cell is equal to this.</li>
+     * </ul>
      *
-     * @exception NullPointerException throws a null-pointer exception, if the given cell is null.
-     * @param cell the new neighbour of the cell.
+     * @exception NullPointerException A null-pointer exception will be raised, if the given cell is null.
+     * @param cell The new neighbour of the cell.
      * @return True, if cell was added. False, otherwise.
      */
     public boolean addNeighbour(final Cell cell) throws NullPointerException {
@@ -171,16 +206,20 @@ class Cell implements ICell {
         return this.neighbours.add(cell);
     }
 
+    /**
+     * <p>Adds all the given cells to the neighborhood.</p>
+     * <p>A null pointer exception will be raised if the list is null.</p>
+     * @param neighbours The cells which should be added to the neighborhood.
+     * @return True, if the cells where added. False, otherwise.
+     * @throws NullPointerException A null pointer exception will be raised when the given list is null.
+     */
     public boolean addNeighbours(final List<Cell> neighbours) throws NullPointerException {
         if(neighbours == null) throw new NullPointerException("Given cell is null");
 
         return this.neighbours.addAll(neighbours);
     }
 
-    /**
-     * Returns the current cell state of the cell.
-     * @return state of the cell.
-     */
+    @Override
     public CellState getCellState() {
         return state;
     }
@@ -193,6 +232,7 @@ class Cell implements ICell {
         return neighbours;
     }
 
+    @Override
     public CellContent getContent() {
         return content;
     }

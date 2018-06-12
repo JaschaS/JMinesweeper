@@ -12,23 +12,23 @@ import java.util.Collection;
 public class CellIncreaseNumberTest {
 
     @Parameterized.Parameter()
-    public ICell.CellContent content;
+    public CellContent content;
 
     @Parameterized.Parameter(value = 1)
-    public ICell.CellContent expected;
+    public CellContent expected;
 
     @Parameterized.Parameters(name = "{index}: testAdd({0}+{1}) = {2}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                { ICell.CellContent.EMPTY, ICell.CellContent.ONE },
-                { ICell.CellContent.ONE, ICell.CellContent.TWO },
-                { ICell.CellContent.TWO, ICell.CellContent.THREE },
-                { ICell.CellContent.THREE, ICell.CellContent.FOUR },
-                { ICell.CellContent.FOUR, ICell.CellContent.FIVE },
-                { ICell.CellContent.FIVE, ICell.CellContent.SIX },
-                { ICell.CellContent.SEVEN, ICell.CellContent.EIGHT },
-                { ICell.CellContent.EIGHT, ICell.CellContent.EIGHT },
-                { ICell.CellContent.MINE, ICell.CellContent.MINE }
+                { CellContent.EMPTY, CellContent.ONE },
+                { CellContent.ONE, CellContent.TWO },
+                { CellContent.TWO, CellContent.THREE },
+                { CellContent.THREE, CellContent.FOUR },
+                { CellContent.FOUR, CellContent.FIVE },
+                { CellContent.FIVE, CellContent.SIX },
+                { CellContent.SEVEN, CellContent.EIGHT },
+                { CellContent.EIGHT, CellContent.EIGHT },
+                { CellContent.MINE, CellContent.MINE }
         });
     }
 
