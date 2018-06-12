@@ -92,7 +92,7 @@ class Cell implements ICell {
     }
 
     /**
-     * <p>Tries to open the cell. If the cell is already discovered, nothing will happen. Otherwise, the cell state will
+     * <p>Tries to performAction the cell. If the cell is already discovered, nothing will happen. Otherwise, the cell state will
      * be changed to <i>OPEN</i> and the cell will be added to the set <i>openedCells</i>. If the cell content is empty,
      * all cells in the neighborhood will also be opened.
      * </p>
@@ -108,7 +108,7 @@ class Cell implements ICell {
             openedCells.add(this);
             state = CellState.OPEN;
 
-            //Only open when the content is empty.
+            //Only performAction when the content is empty.
             if(content == CellContent.EMPTY) {
                 for (final Cell c : neighbours) {
                     c.open(openedCells);

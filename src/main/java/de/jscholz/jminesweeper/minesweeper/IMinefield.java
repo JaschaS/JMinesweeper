@@ -20,7 +20,7 @@ public interface IMinefield {
      *     <li>REMOVE_FLAG, if the flag was removed from the cell.</li>
      * </ul>
      */
-    OpenReturn flagCell(final ICellPosition position);
+    OpenReturn secondaryClick(final ICellPosition position);
 
     /**
      * Flags the cell at the given position or removes the flag from the cell.
@@ -35,7 +35,7 @@ public interface IMinefield {
      *     <li>REMOVE_FLAG, if the flag was removed from the cell.</li>
      * </ul>
      */
-    OpenReturn flagCell(final int x, final int y);
+    OpenReturn secondaryClick(final int x, final int y);
 
     /**
      * Returns a map with all the existing cell positions and empty cells.
@@ -73,7 +73,7 @@ public interface IMinefield {
      *     <li>FAILED, if something went wrong.</li>
      *     <li>IS_ALREADY_OPEN, if the cell was already opened.</li>
      *     <li>WAS_FLAGGED, if the cell is flagged.</li>
-     *     <li>Game_CLEARED, if the last cell was successfully opened and the game is now cleared.</li>
+     *     <li>GAME_CLEARED, if the last cell was successfully opened and the game is now cleared.</li>
      *     <li>OPEN, if the cell was successfully opened.</li>
      * </ul>
      */
@@ -89,7 +89,7 @@ public interface IMinefield {
      *     <li>FAILED, if something went wrong.</li>
      *     <li>IS_ALREADY_OPEN, if the cell was already opened.</li>
      *     <li>WAS_FLAGGED, if the cell is flagged.</li>
-     *     <li>Game_CLEARED, if the last cell was successfully opened and the game is now cleared.</li>
+     *     <li>GAME_CLEARED, if the last cell was successfully opened and the game is now cleared.</li>
      *     <li>OPEN, if the cell was successfully opened.</li>
      * </ul>
      */
@@ -121,7 +121,7 @@ public interface IMinefield {
 
     /**
      * <p>
-     * This enum represents the open return values. It can be used by the click methods to inform the user about the
+     * This enum represents the performAction return values. It can be used by the click methods to inform the user about the
      * status of clicking.
      * </p>
      */
@@ -139,7 +139,7 @@ public interface IMinefield {
          */
         OPEN,
         /**
-         * Informs the user that the cell has already the state open and the action could not be performed.
+         * Informs the user that the cell has already the state performAction and the action could not be performed.
          */
         IS_ALREADY_OPEN,
         /**
@@ -165,6 +165,6 @@ public interface IMinefield {
         /**
          * Informs the user that the game was cleared and is now over.
          */
-        Game_CLEARED
+        GAME_CLEARED
     }
 }
