@@ -53,8 +53,8 @@ class Minefield implements IMinefield {
         this.placedFlags = 0;
         this.isGameOver = false;
         this.field = new HashMap<>();
-
         this.updatedCells = new HashSet<>();
+
         this.singleClickReturnStates = new HashMap<>();
         this.singleClickReturnStates.put(CellState.OPEN, (final Cell cell) -> OpenReturn.IS_ALREADY_OPEN);
         this.singleClickReturnStates.put(CellState.FLAGGED, (final Cell cell) -> OpenReturn.WAS_FLAGGED);
@@ -287,7 +287,11 @@ class Minefield implements IMinefield {
         this.updatedCells.clear();
 
         //Add all cells to the performAction list.
-        this.updatedCells.addAll(this.field.values());
+        //Just adding is not enough. Also set the state of the cells to open.
+        for(final Cell cell : this.field.values()) {
+            cell.setState(CellState.OPEN);
+            this.updatedCells.add(cell);
+        }
     }
 
     /**

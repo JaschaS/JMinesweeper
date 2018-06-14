@@ -1,12 +1,15 @@
 package de.jscholz.jminesweeper.minesweeper;
 
+import java.util.Comparator;
+import java.util.Map;
+
 /**
  * <p>
  *     The interface <i>ICellPosition</i> represents the cell positions inside the minefield. It is used by the cells
  *     and shows where a cell is located inside the minefield.
  * </p>
  */
-public interface ICellPosition {
+public interface ICellPosition extends Comparable<ICellPosition> {
     /**
      * Returns the x value of the position.
      * @return The value of x.
@@ -26,4 +29,5 @@ public interface ICellPosition {
      * @return True, if the position is equal to the given values. False, otherwise.
      */
     boolean compare(final int x, final int y);
+
 }

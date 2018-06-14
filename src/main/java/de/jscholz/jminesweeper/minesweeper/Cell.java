@@ -105,8 +105,28 @@ class Cell implements ICell {
         if(openedCells == null) throw new NullPointerException("Given Set is null");
 
         if(state == CellState.UNDISCOVERED) {
-            openedCells.add(this);
             state = CellState.OPEN;
+
+            /*
+             * Add the cell after the state change not before! This is crucial!
+             * Example 1:
+             * set.add(this)
+             * state = Open
+             *
+             * set.contains(this) => will return false.
+             *
+             * Example 2:
+             * state = Open
+             * set.add(this)
+             *
+             * set.contains(this) => will return true.
+             *
+             * Why does 1 not return true, but 2 does? Because the set will calculate the hashcode of the cell when
+             * calling add.
+             * In 1 the cell will be modified and this will result in a different hashcode. In example 2 the hashcode
+             * will be calculated after changing the cell. Therefore the set will return true.
+             */
+            openedCells.add(this);
 
             //Only performAction when the content is empty.
             if(content == CellContent.EMPTY) {
@@ -233,8 +253,24 @@ class Cell implements ICell {
     }
 
     @Override
-    public CellContent getContent() {
-        return content;
+    public CellContent getCellContent() {
+
+        /*
+         * Only return the content of the cell when the cell state is open! Otherwise return unknown.
+         */
+        if(this.state == CellState.OPEN) {
+            return this.content;
+        }
+
+        return CellContent.UNKNOWN;
+    }
+
+    /**
+     * Returns the content of the cell.
+     * @return content of the cell.
+     */
+    CellContent getContent() {
+        return this.content;
     }
 
     @Override

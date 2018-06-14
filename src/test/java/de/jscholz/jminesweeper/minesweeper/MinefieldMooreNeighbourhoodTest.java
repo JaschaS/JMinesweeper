@@ -9,9 +9,9 @@ import org.junit.runners.Parameterized;
 import java.util.*;
 
 @RunWith(Parameterized.class)
-public class MinefieldMooreNeighbourhood {
+public class MinefieldMooreNeighbourhoodTest {
 
-    public Minefield minefield;
+    private Minefield minefield;
 
     @Parameterized.Parameter()
     public CellPosition startPosition;

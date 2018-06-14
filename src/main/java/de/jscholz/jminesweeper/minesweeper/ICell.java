@@ -12,10 +12,15 @@ public interface ICell {
     ICellPosition getPosition();
 
     /**
-     * Returns the content of the cell.
-     * @return content of the cell.
+     * Returns the content of the cell if the state is OPEN.
+     * Otherwise the return content will be UNKNOWN.
+     *
+     * @return
+     * <ul>
+     *     <li>UNKNOWN, if the state of this cell is UNDISCOVERED or FLAGGED.</li>
+     *     <li>content of the cell, if the state of this cell is OPEN.</li>
      */
-    CellContent getContent();
+    CellContent getCellContent();
 
     /**
      * Returns the current state of the cell.

@@ -8,6 +8,10 @@ import java.util.Set;
  */
 public interface IMinefield {
 
+    //TODO Create a sorted visualization field.
+    //TODO Double Click method
+    //TODO Restart game method
+
     /**
      * Flags the cell at the given position or removes the flag from the cell.
      * @param position The position of the cell.
