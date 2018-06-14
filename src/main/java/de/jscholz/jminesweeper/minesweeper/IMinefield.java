@@ -43,6 +43,7 @@ public interface IMinefield {
 
     /**
      * Returns a map with all the existing cell positions and empty cells.
+     * Note: The map is sorted by the cell positions, where the first entry is x:0,y:0.
      * @return A minefield for the visualization.
      */
     Map<ICellPosition, ICell> getFieldForVisualization();

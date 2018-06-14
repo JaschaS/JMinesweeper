@@ -133,7 +133,7 @@ class Minefield implements IMinefield {
 
     @Override
     public Map<ICellPosition, ICell> getFieldForVisualization() {
-        final HashMap<ICellPosition, ICell> copyField = new HashMap<>();
+        final TreeMap<ICellPosition, ICell> copyField = new TreeMap<>();
         /*
          * Create Map with same CellPositions, but with different cell for visualisation.
          * Note: That the cell will be replaced later with the cells inside this.field.

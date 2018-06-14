@@ -55,9 +55,7 @@ public class Application {
         final StringBuilder builder = new StringBuilder();
         int rowsCount = 0;
 
-        //The map is not sorted by keys.
-        final SortedSet<ICellPosition> keys = new TreeSet<>(field.keySet());
-        for (final ICellPosition position : keys) {
+        for (final ICellPosition position : field.keySet()) {
             final ICell cell = field.get(position);
 
             // Depend on the state print something.
