@@ -23,7 +23,7 @@ public enum CellContent {
      * Shows that the content of the cell is unknown. This will be set if the status of the cell is <i>UNDISCOVERED</i>.
      * The mines in the moore-neighbourhood is -1 and the enum doesn't point to an other enum value.
      */
-    UNKNOWN(-1),
+    UNKNOWN(-2),
     /**
      * Shows that the cell contains a mine. The mines in the moore-neighbourhood is -1 and it doesn't point to an
      * other enum value.
@@ -104,5 +104,10 @@ public enum CellContent {
      */
     int getMinesInNeighbourhood() {
         return this.minesInNeighbourhood;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

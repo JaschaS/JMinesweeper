@@ -35,12 +35,13 @@ public class CellIncreaseNumberTest {
     @Test
     public void increaseNumberTest() {
         final Cell c = new Cell();
+        c.setState(CellState.OPEN);
         c.setContent(content);
 
-        Assert.assertEquals(content, c.getContent());
+        Assert.assertEquals(content, c.getCellContent());
 
         c.increaseNumber();
-        Assert.assertEquals(expected, c.getContent());
+        Assert.assertEquals(expected, c.getCellContent());
     }
 
 }

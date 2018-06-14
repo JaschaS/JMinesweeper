@@ -33,15 +33,18 @@ public class CellEqualTest {
                 { new Cell(), null, false, false},
                 { new Cell(), new Object(), false, false},
                 { new Cell(0,0), c, false, false},
-                {c, c, true, true},
-                {c, new Cell(c), true, false},
+                { c, c, true, true},
+                { c, new Cell(c), true, false},
                 { new Cell(), new Cell(), true, false}
         });
     }
 
     @Test
     public void hashTest() {
+        // Check for equility
         Assert.assertEquals(expectedEqual, a.equals(b));
+
+        // Check for instance
         Assert.assertEquals(expected, a == b);
     }
 

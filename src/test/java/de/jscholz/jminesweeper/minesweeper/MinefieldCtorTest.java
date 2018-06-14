@@ -14,7 +14,7 @@ public class MinefieldCtorTest {
         final Map<ICellPosition, Cell> f = field.getOriginalField();
 
         int amount = 10;
-        for(final ICell c : f.values()) {
+        for(final Cell c : f.values()) {
             if(c.getContent() == CellContent.MINE) --amount;
         }
 
@@ -23,10 +23,10 @@ public class MinefieldCtorTest {
 
     @Test
     public void checkNeighbourNumberTest() {
-        final IMinefield field = GameCreator.createBeginnerGame();
-        final Map<ICellPosition, ICell> f = field.getFieldForVisualization();
+        final Minefield field = (Minefield) GameCreator.createBeginnerGame();
+        final Map<ICellPosition, Cell> f = field.getOriginalField();
 
-        for(ICell c : f.values()) {
+        for(final Cell c : f.values()) {
             final CellContent content = c.getContent();
 
             /*
@@ -34,7 +34,7 @@ public class MinefieldCtorTest {
              */
             if(content != CellContent.MINE && content != CellContent.EMPTY) {
                 final int number = content.getMinesInNeighbourhood();
-                final Set<Cell> neighbours = ((Cell) c).getNeighbours();
+                final Set<Cell> neighbours = c.getNeighbours();
 
                 /*
                  * Check the amount of numbers in the neighbourhood.

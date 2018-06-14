@@ -1,5 +1,7 @@
 package de.jscholz.jminesweeper.minesweeper;
 
+import java.util.Map;
+
 /**
  * <p>The implementation of the ICellPosition. It will represent the positions of cells within the minefield.</p>
  */
@@ -70,6 +72,29 @@ class CellPosition implements ICellPosition {
         if ( this == obj ) return true;
 
         return hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public int compareTo(final ICellPosition other) {
+
+        final int otherY = other.getY();
+        final int otherX = other.getX();
+
+        // The other y position is greater than the y position, means the other comes after this object.
+        if(otherY > y) return -1;
+
+        // The other y position is smaler than the y position, means the other comes before this object.
+        if(otherY < y) return 1;
+
+        // The y's are the same. Compare the X values.
+        // Both positions are the same.
+        if(otherX == x) return 0;
+
+        // Other x is greater than x, means it comes after this object.
+        if(otherX > x) return -1;
+
+        // Other X is smaler than x, means it comes after this object.
+        return 1;
     }
 
     @Override

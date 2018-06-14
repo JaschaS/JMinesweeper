@@ -8,6 +8,10 @@ import java.util.Set;
  */
 public interface IMinefield {
 
+    //TODO Create a sorted visualization field.
+    //TODO Double Click method
+    //TODO Restart game method
+
     /**
      * Flags the cell at the given position or removes the flag from the cell.
      * @param position The position of the cell.
@@ -39,6 +43,7 @@ public interface IMinefield {
 
     /**
      * Returns a map with all the existing cell positions and empty cells.
+     * Note: The map is sorted by the cell positions, where the first entry is x:0,y:0.
      * @return A minefield for the visualization.
      */
     Map<ICellPosition, ICell> getFieldForVisualization();

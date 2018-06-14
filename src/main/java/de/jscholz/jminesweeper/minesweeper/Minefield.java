@@ -53,8 +53,8 @@ class Minefield implements IMinefield {
         this.placedFlags = 0;
         this.isGameOver = false;
         this.field = new HashMap<>();
-
         this.updatedCells = new HashSet<>();
+
         this.singleClickReturnStates = new HashMap<>();
         this.singleClickReturnStates.put(CellState.OPEN, (final Cell cell) -> OpenReturn.IS_ALREADY_OPEN);
         this.singleClickReturnStates.put(CellState.FLAGGED, (final Cell cell) -> OpenReturn.WAS_FLAGGED);
@@ -133,7 +133,7 @@ class Minefield implements IMinefield {
 
     @Override
     public Map<ICellPosition, ICell> getFieldForVisualization() {
-        final HashMap<ICellPosition, ICell> copyField = new HashMap<>();
+        final TreeMap<ICellPosition, ICell> copyField = new TreeMap<>();
         /*
          * Create Map with same CellPositions, but with different cell for visualisation.
          * Note: That the cell will be replaced later with the cells inside this.field.
@@ -287,7 +287,11 @@ class Minefield implements IMinefield {
         this.updatedCells.clear();
 
         //Add all cells to the performAction list.
-        this.updatedCells.addAll(this.field.values());
+        //Just adding is not enough. Also set the state of the cells to open.
+        for(final Cell cell : this.field.values()) {
+            cell.setState(CellState.OPEN);
+            this.updatedCells.add(cell);
+        }
     }
 
     /**

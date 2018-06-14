@@ -31,22 +31,24 @@ public class CellMarkAsMineTest {
     @Test
     public void markAsMineTest() {
         final Cell c = new Cell();
+        c.setState(CellState.OPEN);
         c.setContent(content);
 
         final boolean result = c.markAsMine();
         Assert.assertEquals(expected, result);
-        Assert.assertEquals(expectedContent, c.getContent());
+        Assert.assertEquals(expectedContent, c.getCellContent());
     }
 
     @Test
     public void cellAsNeighbourTest() {
         final Cell c = new Cell();
+        c.setState(CellState.OPEN);
         c.setContent(CellContent.EMPTY);
         c.addNeighbour(c);
 
         final boolean result = c.markAsMine();
         Assert.assertEquals(true, result);
-        Assert.assertEquals(CellContent.MINE, c.getContent());
+        Assert.assertEquals(CellContent.MINE, c.getCellContent());
 
     }
 
