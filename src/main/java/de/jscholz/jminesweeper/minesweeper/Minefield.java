@@ -72,7 +72,12 @@ class Minefield implements IMinefield {
 
             cell.open(this.updatedCells);
 
-            --this.freeCellsLeft;
+            /**
+             * Why do we subtract here updateCells.size from freeCellsLeft instead of using -1?
+             * Because we open multiple cells when the cell content of the cell is empty. Thus, we need to subtract
+             * all cells we have opened in this round.
+             */
+            this.freeCellsLeft -= this.updatedCells.size();
 
             if(this.freeCellsLeft > 0) {
                 return OpenReturn.OPEN;
@@ -279,6 +284,8 @@ class Minefield implements IMinefield {
         return this.columns;
     }
 
+    public int getFreeCellsLeft() { return this.freeCellsLeft; }
+
     /**
      * Set the game over and add all cells to the performAction cell list.
      */
@@ -289,7 +296,7 @@ class Minefield implements IMinefield {
         //Add all cells to the performAction list.
         //Just adding is not enough. Also set the state of the cells to open.
         for(final Cell cell : this.field.values()) {
-            cell.setState(CellState.OPEN);
+            cell.setGameOver(true);
             this.updatedCells.add(cell);
         }
     }

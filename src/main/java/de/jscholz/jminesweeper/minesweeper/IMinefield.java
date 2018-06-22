@@ -11,6 +11,7 @@ public interface IMinefield {
     //TODO Create a sorted visualization field.
     //TODO Double Click method
     //TODO Restart game method
+    //TODO https://stackoverflow.com/questions/1738128/minesweeper-solving-algorithm
 
     /**
      * Flags the cell at the given position or removes the flag from the cell.
