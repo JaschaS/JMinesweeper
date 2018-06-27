@@ -3,7 +3,7 @@ package de.jscholz.jminesweeper.minesweeper;
 /**
  * All predefined difficulty settings for the minesweeper game.
  */
-enum Difficulty {
+public enum Difficulty {
     /**
      * Difficult setting for an easy game.
      */
