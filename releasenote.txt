@@ -1,0 +1,20 @@
+#Release v1.0 - 27-06-2018
+
+New:
+This release contains a fully functional game.
+- The user can flag cells with a secondary click.
+- The user can open cells with a single click.
+- Game over will be called if the user clicks on a mine.
+- The game is cleared when all cells which are not containing a mine are opened.
+- The user can receive games with different difficulty levels.
+- The user can request visualization representation.
+
+Improvements:
+None
+
+Fixes:
+None
+
+Known Issues:
+- The user can't double click on a single cell.
+
