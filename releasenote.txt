@@ -1,3 +1,19 @@
+#Update v1.1 - 27-06-2018
+
+New:
+- The user can now double click on a single cell.
+- The game creator methods to get a easy, experienced, hard and custom game are now
+deprecated.
+
+Improvements:
+None
+
+Fixes:
+None
+
+Known Issues:
+None
+
 #Release v1.0 - 27-06-2018
 
 New:

@@ -113,6 +113,7 @@ public final class GameCreator {
      * Creates a game with the difficult setting EASY.
      * @return A beginner minesweeper game.
      */
+    @Deprecated
     public static IMinefield createBeginnerGame() {
         return new Minefield(Difficulty.EASY);
     }
@@ -121,6 +122,7 @@ public final class GameCreator {
      * Creates a game with the difficult setting EXPERIENCED.
      * @return A experienced minesweeper game.
      */
+    @Deprecated
     public static IMinefield createExperiencedGame() {
         return new Minefield(Difficulty.EXPERIENCED);
     }
@@ -129,6 +131,7 @@ public final class GameCreator {
      * Creates a game with the difficult setting EXPERT.
      * @return A expert minesweeper game.
      */
+    @Deprecated
     public static IMinefield createExpertGame() {
         return new Minefield(Difficulty.EXPERT);
     }
@@ -142,6 +145,7 @@ public final class GameCreator {
      * @param minesPercent The percentage of mines inside the minefield.
      * @return A custom minesweeper game.
      */
+    @Deprecated
     public static IMinefield createCustomGame(int rows, int columns, int minesPercent) {
         rows = ensureRange(rows, MIN_ROWS, MAX_ROWS);
         columns = ensureRange(columns, MIN_COLUMNS, MAX_COLUMNS);

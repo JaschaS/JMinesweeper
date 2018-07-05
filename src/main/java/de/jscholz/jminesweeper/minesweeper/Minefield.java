@@ -24,6 +24,11 @@ class Minefield implements IMinefield {
      * State return values for the secondary click.
      */
     private final HashMap<CellState, ClickReturnStates> secondaryClickReturnStates;
+
+    /**
+     * State return values for the double click.
+     */
+    private final HashMap<CellState, ClickReturnStates> doubleClickReturnStates;
     /**
      * The total amount of mines within the minefield.
      */
@@ -98,6 +103,113 @@ class Minefield implements IMinefield {
             flagCell(cell, CellState.UNDISCOVERED);
 
             return OpenReturn.NOW_FLAGGED;
+        });
+
+        this.doubleClickReturnStates = new HashMap<>();
+        this.doubleClickReturnStates.put(CellState.OPEN, (final Cell cell) -> {
+            /**
+             * get Cell
+             * What to expect:
+             * - we get the neighbours and iterate over them:
+             * - try to open cell
+             * - if the neighbour is already open -> increase open cell count
+             * - if the neighbour is flagged -> increase flag cell count
+             * - if the neighbour undiscovered -> open
+             *      - if cell is mine -> game over and return was mine
+             *      - otherwise -> add cell to updated list
+             * - was mine => return game over
+             * - flag count == neighbour size => return was_flagged
+             * - open cell == neighbour size => return cell are already open
+             */
+            final Set<Cell> neighbours = cell.getNeighbours();
+            assert neighbours != null : "The set neighbours was null!";
+            assert neighbours.size() > 0 : "The amount of neighbours is 0!";
+
+            final Iterator<Cell> iterator = neighbours.iterator();
+            boolean mineWasFound = false;
+            int flagCount = 0;
+            int openCount = 0;
+
+            while (iterator.hasNext() && !mineWasFound ) {
+
+                final Cell n = iterator.next();
+                final CellState state = n.getCellState();
+
+                switch (state) {
+                    case OPEN:
+                        ++openCount;
+                        break;
+                    case FLAGGED:
+                        ++flagCount;
+                        break;
+                    case UNDISCOVERED:
+                        final CellContent content = n.getContent();
+                        switch (content) {
+                            case MINE:
+                                setGameOver();
+                                mineWasFound = true;
+                                break;
+                            default:
+                                n.setState(CellState.OPEN);
+                                this.updatedCells.add(n);
+                                break;
+                        }
+                }
+            }
+
+            /**
+             * When a mine was opened, just return WAS_MINE.
+             */
+            if(mineWasFound) return OpenReturn.WAS_MINE;
+
+            /**
+             * all cells in the moore neighbourhood are flagged, just return WAS_FLAGGED.
+             */
+            if(flagCount == neighbours.size()) return OpenReturn.WAS_FLAGGED;
+
+            /**
+             * all cells in the moore neighbourhood are already opened, just return IS_ALREADY_OPEN.
+             */
+            if(openCount == neighbours.size()) return OpenReturn.IS_ALREADY_OPEN;
+
+            /**
+             * Otherwise return open.
+             *
+             * Note: Here you can't return openReturn, because the last cell in the neighbourhood could be flagged
+             * and then we would return was_flagged.
+             */
+            return OpenReturn.OPEN;
+        });
+        this.doubleClickReturnStates.put(CellState.FLAGGED, (final Cell cell) -> {
+            // Do nothing on this cell, but to stuff on the neighbours.
+            final ClickReturnStates returnStates = this.doubleClickReturnStates.get(CellState.OPEN);
+            assert returnStates != null : "The double return state was null";
+
+            return returnStates.performAction(cell);
+        });
+        this.doubleClickReturnStates.put(CellState.UNDISCOVERED, (final Cell cell) -> {
+            //Get the current cell content. We expect that this content is not null.
+            final CellContent content = cell.getContent();
+            assert content != null : "Content of Cell " + cell + " is null!";
+
+            // The cell contained a mine which ends the game now.
+            if(content == CellContent.MINE) {
+                setGameOver();
+                return OpenReturn.WAS_MINE;
+            }
+
+            //Set state to open. Don't use open, because it may opens all neighbours.
+            cell.setState(CellState.OPEN);
+
+            //Add this cell to the updated cell list.
+            this.updatedCells.add(cell);
+
+            // Now open all neighbours
+            // Do nothing on this cell, but to stuff on the neighbours.
+            final ClickReturnStates returnStates = this.doubleClickReturnStates.get(CellState.OPEN);
+            assert returnStates != null : "The double return state was null";
+
+            return returnStates.performAction(cell);
         });
     }
 
@@ -218,6 +330,16 @@ class Minefield implements IMinefield {
          *     Return OPEN if there still undiscovered cells left. GAME_CLEARED, otherwise.
          */
         return modifyCell(position, singleClickReturnStates);
+    }
+
+    @Override
+    public OpenReturn doubleClick(final int x, final int y) {
+        return doubleClick(new CellPosition(x, y));
+    }
+
+    @Override
+    public OpenReturn doubleClick(final ICellPosition position) {
+        return modifyCell(position, doubleClickReturnStates);
     }
 
     /**
@@ -465,5 +587,4 @@ class Minefield implements IMinefield {
          */
         OpenReturn performAction(final Cell cell);
     }
-
 }

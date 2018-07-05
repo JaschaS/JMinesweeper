@@ -61,28 +61,6 @@ public class MinefieldGameClearedTest {
         return cells;
     }
 
-    private List<Cell> getAllCells(final CellState state) {
-
-        final ArrayList<Cell> cells = new ArrayList<>();
-        final Map<ICellPosition, Cell> field = minefield.getOriginalField();
-
-        for(final Cell c : field.values()) {
-            if(c.getCellState() == state) cells.add(c);
-        }
-
-        return cells;
-    }
-
-    private Cell getCell(final CellContent content) {
-        final Map<ICellPosition, Cell> field = minefield.getOriginalField();
-
-        for(final Cell c : field.values()) {
-            if(c.getContent() == content) return c;
-        }
-
-        return null;
-    }
-
     private Cell getCell(final CellState state) {
         Map<ICellPosition, Cell> field = minefield.getOriginalField();
 
