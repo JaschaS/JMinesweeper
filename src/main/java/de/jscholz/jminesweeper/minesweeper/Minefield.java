@@ -125,15 +125,19 @@ class Minefield implements IMinefield {
             assert neighbours != null : "The set neighbours was null!";
             assert neighbours.size() > 0 : "The amount of neighbours is 0!";
 
-            final Iterator<Cell> iterator = neighbours.iterator();
+            // This queue holds all cells which should be opened.
+            final Queue<Cell> cellsToOpen = new LinkedList<>();
+            cellsToOpen.addAll(neighbours);
             boolean mineWasFound = false;
+            boolean gameWasCleared = false;
             int flagCount = 0;
             int openCount = 0;
 
-            while (iterator.hasNext() && !mineWasFound ) {
+            Cell next = cellsToOpen.poll();
 
-                final Cell n = iterator.next();
-                final CellState state = n.getCellState();
+            while (next != null && !mineWasFound && !gameWasCleared ) {
+
+                final CellState state = next.getCellState();
 
                 switch (state) {
                     case OPEN:
@@ -143,24 +147,46 @@ class Minefield implements IMinefield {
                         ++flagCount;
                         break;
                     case UNDISCOVERED:
-                        final CellContent content = n.getContent();
+                        final CellContent content = next.getContent();
                         switch (content) {
                             case MINE:
                                 setGameOver();
                                 mineWasFound = true;
                                 break;
+                            case EMPTY:
+                                // Add all neighbours of this empty cell to the queue.
+                                final Set<Cell> neighboursOfEmpty = next.getNeighbours();
+                                cellsToOpen.addAll(neighboursOfEmpty);
+
+                                // Fall through because we still want to do the same as with the numbers.
                             default:
-                                n.setState(CellState.OPEN);
-                                this.updatedCells.add(n);
+                                next.setState(CellState.OPEN);
+                                this.updatedCells.add(next);
+
+                                --this.freeCellsLeft;
+
+                                assert this.freeCellsLeft >= 0 : "the amount of free cells is negativ!";
+
+                                if(this.freeCellsLeft == 0) {
+                                    setGameOver();
+                                    gameWasCleared = true;
+                                }
                                 break;
                         }
                 }
+
+                next = cellsToOpen.poll();
             }
 
             /**
              * When a mine was opened, just return WAS_MINE.
              */
             if(mineWasFound) return OpenReturn.WAS_MINE;
+
+            /**
+             * The game was cleared during double click, return GAME_CLEARED.
+             */
+            if(gameWasCleared) return OpenReturn.GAME_CLEARED;
 
             /**
              * all cells in the moore neighbourhood are flagged, just return WAS_FLAGGED.
@@ -204,12 +230,23 @@ class Minefield implements IMinefield {
             //Add this cell to the updated cell list.
             this.updatedCells.add(cell);
 
-            // Now open all neighbours
-            // Do nothing on this cell, but to stuff on the neighbours.
-            final ClickReturnStates returnStates = this.doubleClickReturnStates.get(CellState.OPEN);
-            assert returnStates != null : "The double return state was null";
+            --this.freeCellsLeft;
 
-            return returnStates.performAction(cell);
+            if(this.freeCellsLeft > 0) {
+                // Now open all neighbours
+                // Do nothing on this cell, but to stuff on the neighbours.
+                final ClickReturnStates returnStates = this.doubleClickReturnStates.get(CellState.OPEN);
+                assert returnStates != null : "The double return state was null";
+
+                return returnStates.performAction(cell);
+            }
+
+            /**
+             * There are no cells left therefore the game is cleared.
+             */
+            setGameOver();
+            return OpenReturn.GAME_CLEARED;
+
         });
     }
 

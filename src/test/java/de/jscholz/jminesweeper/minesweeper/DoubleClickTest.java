@@ -333,6 +333,158 @@ public class DoubleClickTest {
         Assert.assertEquals(0, updatedCells.size());
     }
 
+
+    // TODO game cleared when double click
+    @Test
+    public void clearGameWithDoubleClick() {
+        /**
+         * Flag all cell which are mines.
+         * Then open all cells which are empty with single clicks.
+         * Then open the rest of the cells with double click.
+         * Expects:
+         * - The game is over
+         * - The amount of free cells is 0
+         * - The double click returns game is already over when clicking again
+         * - the last double click returns game cleared
+         * - The update list of cells should contain now all cells.
+         */
+        // Flag all mines
+        final List<Cell> allMines = getAllCells(CellContent.MINE);
+        Assert.assertFalse(allMines == null);
+        Assert.assertFalse(allMines.size() == 0);
+        Assert.assertEquals(10, allMines.size());
+
+        for(final Cell cell : allMines) {
+            final ICellPosition position = cell.getPosition();
+            final IMinefield.OpenReturn openReturn = this.minefield.secondaryClick(position);
+            Assert.assertEquals(IMinefield.OpenReturn.NOW_FLAGGED, openReturn);
+        }
+
+        // Open all empty cells.
+        Cell cell = getCell(CellContent.EMPTY, CellState.UNDISCOVERED);
+        Assert.assertFalse(cell == null);
+        while (cell != null){
+            final ICellPosition position = cell.getPosition();
+            final IMinefield.OpenReturn openReturn = this.minefield.singleClick(position);
+            Assert.assertEquals(IMinefield.OpenReturn.OPEN, openReturn);
+
+            cell = getCell(CellContent.EMPTY, CellState.UNDISCOVERED);
+        }
+
+        // Open the rest.
+        final CellContent[] contentsNotAllowed = new CellContent[]{CellContent.MINE, CellContent.EMPTY};
+        cell = getCell(contentsNotAllowed, CellState.UNDISCOVERED);
+        Assert.assertFalse(cell == null);
+        while (cell != null){
+            final ICellPosition position = cell.getPosition();
+            final IMinefield.OpenReturn openReturn = this.minefield.doubleClick(position);
+            if(this.minefield.getFreeCellsLeft() == 0) {
+                Assert.assertTrue(this.minefield.getFreeCellsLeft() + "", this.minefield.getFreeCellsLeft() == 0);
+                Assert.assertEquals(IMinefield.OpenReturn.GAME_CLEARED, openReturn);
+            }
+            else {
+                Assert.assertTrue(this.minefield.getFreeCellsLeft() + "", this.minefield.getFreeCellsLeft() > 0);
+            }
+
+            cell = getCell(contentsNotAllowed, CellState.UNDISCOVERED);
+        }
+
+        Assert.assertEquals(0, this.minefield.getFreeCellsLeft());
+        Assert.assertTrue(this.minefield.gameOver());
+
+        final Set<ICell> updatedCells = this.minefield.getUpdateCells();
+        Assert.assertEquals(this.minefield.getRows() * this.minefield.getColumns(), updatedCells.size());
+
+        final IMinefield.OpenReturn openReturn = this.minefield.doubleClick(new CellPosition(0, 0));
+        Assert.assertEquals(IMinefield.OpenReturn.GAME_IS_ALREADY_OVER, openReturn);
+    }
+
+    @Test
+    public void emptyCellOpensOthers() {
+        /**
+         * If a cell in the neighbourhood which has the content empty is opened by a
+         * double click, all neighbours of the empty cell should opened as well.
+         * Find a cell which has an empty cell as neighbour. then double click on it.
+         * Flag all cells, so that the game is not over and all cells are in update cells.
+         * expect:
+         * - game is not over
+         * - the neighbours of the empty cell are all opened.
+         * - the neighbours of the empty cell are in the updated cell list.
+         */
+        // Flag all mines
+        final List<Cell> allMines = getAllCells(CellContent.MINE);
+        Assert.assertFalse(allMines == null);
+        Assert.assertFalse(allMines.size() == 0);
+        Assert.assertEquals(10, allMines.size());
+
+        for(final Cell cell : allMines) {
+            final ICellPosition position = cell.getPosition();
+            final IMinefield.OpenReturn openReturn = this.minefield.secondaryClick(position);
+            Assert.assertEquals(IMinefield.OpenReturn.NOW_FLAGGED, openReturn);
+        }
+
+        // Get Cell with neighbour empty.
+        final Cell cell = getCell(CellState.UNDISCOVERED, CellContent.ONE, CellContent.EMPTY);
+        Assert.assertFalse(cell == null);
+        Assert.assertEquals(CellContent.ONE, cell.getContent());
+        Assert.assertEquals(CellState.UNDISCOVERED, cell.getCellState());
+
+        final Set<Cell> neighbours = cell.getNeighbours();
+        Assert.assertFalse(neighbours == null);
+        Assert.assertFalse( neighbours.size() == 0);
+        int empty = 0;
+
+        // Make sure that at least one neighbour is empty
+        for(final Cell n : neighbours) {
+            if(n.getContent() == CellContent.EMPTY) {
+                ++empty;
+
+                // Make sure that the neighbours are not open already.
+                final Set<Cell> emptyCellNeighbours = n.getNeighbours();
+                for(final Cell k : emptyCellNeighbours) {
+                    Assert.assertEquals(CellState.UNDISCOVERED, k.getCellState());
+                }
+            }
+        }
+        Assert.assertFalse(empty == 0);
+
+        final IMinefield.OpenReturn openReturn = this.minefield.doubleClick(cell.getPosition());
+        Assert.assertFalse(openReturn == IMinefield.OpenReturn.WAS_MINE);
+        Assert.assertTrue(openReturn == IMinefield.OpenReturn.OPEN);
+        Assert.assertFalse(this.minefield.gameOver());
+
+        final Set<ICell> updateCells = this.minefield.getUpdateCells();
+
+        // Now check if the neighbours of the empty cell are already open.
+        // And if they are contained in the update cell set.
+        for(final Cell n : neighbours) {
+            if(n.getContent() == CellContent.EMPTY) {
+                final Set<Cell> emptyCellNeighbours = n.getNeighbours();
+                for(final Cell k : emptyCellNeighbours) {
+                    Assert.assertEquals(CellState.OPEN, k.getCellState());
+                    Assert.assertTrue(updateCells.contains(k));
+                }
+                Assert.assertTrue(updateCells.contains(n));
+            }
+        }
+    }
+
+    private Cell getCell(final CellState state,  final CellContent content, final CellContent neighbourContent) {
+        final Map<ICellPosition, Cell> field = minefield.getOriginalField();
+
+        for(final Cell c : field.values()) {
+            if(c.getContent() == content && c.getCellState() == state) {
+                final Set<Cell> neighbours = c.getNeighbours();
+
+                for(final Cell n : neighbours) {
+                    if(n.getContent() == neighbourContent) return c;
+                }
+            }
+        }
+
+        return null;
+    }
+
     private List<Cell> getAllCells(final CellContent content) {
 
         final ArrayList<Cell> cells = new ArrayList<>();
@@ -345,16 +497,16 @@ public class DoubleClickTest {
         return cells;
     }
 
-    private List<Cell> getAllCells(final CellState state) {
-
-        final ArrayList<Cell> cells = new ArrayList<>();
+    private Cell getCell(final CellContent[] contentNotAllowed, final CellState state) {
         final Map<ICellPosition, Cell> field = minefield.getOriginalField();
 
         for(final Cell c : field.values()) {
-            if(c.getCellState() == state) cells.add(c);
+            if(notContent(c.getContent(), contentNotAllowed) && c.getCellState() == state) {
+                return c;
+            }
         }
 
-        return cells;
+        return null;
     }
 
     private Cell getCell(final CellState state, final CellContent[] notContent, final CellContent notNeighbourhoodContent) {
@@ -384,6 +536,16 @@ public class DoubleClickTest {
 
         for(final Cell c : field.values()) {
             if(c.getContent() == content) return c;
+        }
+
+        return null;
+    }
+
+    private Cell getCell(final CellContent content, final CellState state) {
+        final Map<ICellPosition, Cell> field = minefield.getOriginalField();
+
+        for(final Cell c : field.values()) {
+            if(c.getContent() == content && c.getCellState() == state) return c;
         }
 
         return null;
