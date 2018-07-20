@@ -104,6 +104,7 @@ class Cell implements ICell {
      */
     public void open(final Set<ICell> openedCells) throws NullPointerException {
 
+        // TODO assert
         if(openedCells == null) throw new NullPointerException("Given Set is null");
 
         if(state == CellState.UNDISCOVERED) {

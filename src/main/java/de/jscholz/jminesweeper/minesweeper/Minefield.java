@@ -127,12 +127,12 @@ class Minefield implements IMinefield {
 
             // This queue holds all cells which should be opened.
             final Queue<Cell> cellsToOpen = new LinkedList<>();
-            cellsToOpen.addAll(neighbours);
             boolean mineWasFound = false;
             boolean gameWasCleared = false;
             int flagCount = 0;
             int openCount = 0;
 
+            cellsToOpen.addAll(neighbours);
             Cell next = cellsToOpen.poll();
 
             while (next != null && !mineWasFound && !gameWasCleared ) {
@@ -157,6 +157,8 @@ class Minefield implements IMinefield {
                                 // Add all neighbours of this empty cell to the queue.
                                 final Set<Cell> neighboursOfEmpty = next.getNeighbours();
                                 cellsToOpen.addAll(neighboursOfEmpty);
+
+                                // TODO this results in problems, where cells are not opened in the visible field
 
                                 // Fall through because we still want to do the same as with the numbers.
                             default:
@@ -215,6 +217,8 @@ class Minefield implements IMinefield {
         });
         this.doubleClickReturnStates.put(CellState.UNDISCOVERED, (final Cell cell) -> {
             //Get the current cell content. We expect that this content is not null.
+            assert cell != null : "Cell is null!";
+
             final CellContent content = cell.getContent();
             assert content != null : "Content of Cell " + cell + " is null!";
 

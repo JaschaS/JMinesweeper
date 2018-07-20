@@ -113,7 +113,7 @@ public class DoubleClickTest {
 
         // Now double click on the cell.
         openReturn = minefield.doubleClick(cell.getPosition());
-        Assert.assertTrue(openReturn == IMinefield.OpenReturn.OPEN);
+        Assert.assertEquals(IMinefield.OpenReturn.OPEN, openReturn);
 
         // Cell is still flagged.
         Assert.assertTrue(cell.getCellState() == CellState.FLAGGED);
@@ -449,8 +449,8 @@ public class DoubleClickTest {
         Assert.assertFalse(empty == 0);
 
         final IMinefield.OpenReturn openReturn = this.minefield.doubleClick(cell.getPosition());
-        Assert.assertFalse(openReturn == IMinefield.OpenReturn.WAS_MINE);
-        Assert.assertTrue(openReturn == IMinefield.OpenReturn.OPEN);
+        Assert.assertNotEquals(IMinefield.OpenReturn.WAS_MINE, openReturn);
+        Assert.assertEquals(IMinefield.OpenReturn.OPEN, openReturn);
         Assert.assertFalse(this.minefield.gameOver());
 
         final Set<ICell> updateCells = this.minefield.getUpdateCells();
@@ -468,6 +468,8 @@ public class DoubleClickTest {
             }
         }
     }
+
+    // TODO All cell sind offen außer einer ist eine Flagge - die eine mine. Hier wird aktuell immer is open returned
 
     private Cell getCell(final CellState state,  final CellContent content, final CellContent neighbourContent) {
         final Map<ICellPosition, Cell> field = minefield.getOriginalField();
