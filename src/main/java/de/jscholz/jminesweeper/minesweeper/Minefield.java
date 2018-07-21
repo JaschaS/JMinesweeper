@@ -258,7 +258,7 @@ class Minefield implements IMinefield {
      * Custom-Ctor creates a minefield with the given difficult setting.
      * @param setting The difficult setting for the minefield.
      */
-    public Minefield(final Difficulty setting) {
+    Minefield(final Difficulty setting) {
         this(setting.getRows(), setting.getColumns(), setting.getMinesPercent());
     }
 
@@ -268,7 +268,7 @@ class Minefield implements IMinefield {
      * @param columns The columns of the field.
      * @param minesPercent The percent of mines inside the field.
      */
-    public Minefield(final int rows, final int columns, final int minesPercent) {
+    Minefield(final int rows, final int columns, final int minesPercent) {
 
         /*
          * The game aspect that the given values are valid because only the factory pattern can instanciate a minefield.
