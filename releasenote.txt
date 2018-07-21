@@ -12,6 +12,13 @@ Fixed issues where cells where not contained in the update click after a double 
 Known Issues:
 None
 
+Todos:
+- Write tests for the new methods.
+- Rewrite the existing tests.
+- Describe what the tests are doing.
+- Order the code.
+- Cleanup code.
+
 #Update v1.1 - 27-06-2018
 
 New:

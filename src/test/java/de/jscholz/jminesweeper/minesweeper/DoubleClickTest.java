@@ -20,6 +20,31 @@ public class DoubleClickTest {
         minefield = (Minefield) GameCreator.createGame();
     }
 
-    
+    /**
+     * - Cell is Undiscovered
+     *      - all neighbours are undiscovered
+     *      - all neighbours are flagged
+     *      - one neighbour is flagged
+     *      - empty cell in neighbourhood
+     *      - all neighbours are opened
+     *      - neighbour is mine
+     *      - neighbours are last undiscovered cells
+     * - Cell is flagged
+     *      - all neighbours are undiscovered
+     *      - all neighbours are flagged
+     *      - one neighbour is flagged
+     *      - empty cell in neighbourhood
+     *      - all neighbours are opened
+     *      - neighbour is mine
+     *      - neighbours are last undiscovered cells
+     * - Cell is open
+     *      - all neighbours are undiscovered
+     *      - all neighbours are flagged
+     *      - one neighbour is flagged
+     *      - empty cell in neighbourhood
+     *      - all neighbours are opened
+     *      - neighbour is mine
+     *      - neighbours are last undiscovered cells
+     */
 
 }

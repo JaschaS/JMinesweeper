@@ -32,15 +32,15 @@ class Minefield implements IMinefield {
     /**
      * The total amount of mines within the minefield.
      */
-    private final int totalAmountOfMines;
+    private int totalAmountOfMines;
     /**
      * The amount of rows inside the minefield.
      */
-    private final int rows;
+    private int rows;
     /**
      * The amount of columns inside the minefield.
      */
-    private final int columns;
+    private int columns;
     /**
      * The amount of free cells inside the minefield.
      */
@@ -118,6 +118,16 @@ class Minefield implements IMinefield {
     }
 
     /**
+     * Default-Ctor creates an empty minefield with row- and col-size equal to 0. The amount of mines
+     * is also 0.
+     */
+    Minefield() {
+        this.rows = 0;
+        this.columns = 0;
+        this.totalAmountOfMines = 0;
+    }
+
+    /**
      * Custom-Ctor creates a minefield with the given difficult setting.
      * @param setting The difficult setting for the minefield.
      */
@@ -145,11 +155,66 @@ class Minefield implements IMinefield {
         this.totalAmountOfMines = (rows*columns) * minesPercent / 100;
 
         // Calculate the amount of free cells.
-        this.freeCellsLeft = (this.rows * this.columns) - this.totalAmountOfMines;
+        calculateFreeCellsLeft();
 
         createEmptyMinefield(rows, columns);
         addNeighboursToCells();
         placeMines();
+    }
+
+    /**
+     * Places mines at the given positions.
+     * @param minePositions
+     */
+    void setMines(final Set<CellPosition> minePositions) {
+        // TODO write test
+        for(final CellPosition position : minePositions) {
+
+            final Cell cell = this.field.get(position);
+            if(cell != null) {
+
+                cell.markAsMine();
+                ++this.totalAmountOfMines;
+            }
+        }
+        calculateFreeCellsLeft();
+    }
+
+    /**
+     * Places flags at the given positions.
+     * @param flagPositions
+     */
+    void setPlacedFlags(final Set<CellPosition> flagPositions) {
+        // TODO write test
+        for(final CellPosition position : flagPositions) {
+
+            final Cell cell = this.field.get(position);
+            if(cell != null) {
+
+                flagCell(cell, CellState.FLAGGED);
+            }
+        }
+    }
+
+    /**
+     * Set the state to open for the cells at the given positions.
+     * @param openPositions
+     */
+    void openCells(final Set<CellPosition> openPositions) {
+        // TODO write test
+        for(final CellPosition position : openPositions) {
+
+            final Cell cell = this.field.get(position);
+            if(cell != null) {
+
+                cell.setState(CellState.OPEN);
+            }
+        }
+    }
+
+    private void calculateFreeCellsLeft() {
+        // Calculate the amount of free cells.
+        this.freeCellsLeft = (this.rows * this.columns) - this.totalAmountOfMines;
     }
 
     @Override
@@ -332,7 +397,7 @@ class Minefield implements IMinefield {
      * @param rows The amount of rows.
      * @param cols The amount of cols.
      */
-    private void createEmptyMinefield(final int rows, final int cols) {
+    void createEmptyMinefield(final int rows, final int cols) {
 
         for (int y = 0; y < cols; ++y) {
             for(int x=0; x < rows; ++x) {
@@ -443,6 +508,9 @@ class Minefield implements IMinefield {
 
             // Get the cell to the position and mark the cell as mine.
             final Cell cell = this.field.get(position);
+
+            assert cell != null : "Couldn't find position in minefield [" + position + "]";
+
             cell.markAsMine();
         }
     }
