@@ -1,3 +1,17 @@
+#Update v1.1b - 21-07-2018
+
+New:
+None
+
+Improvements:
+None
+
+Fixes:
+Fixed issues where cells where not contained in the update click after a double click.
+
+Known Issues:
+None
+
 #Update v1.1 - 27-06-2018
 
 New:
