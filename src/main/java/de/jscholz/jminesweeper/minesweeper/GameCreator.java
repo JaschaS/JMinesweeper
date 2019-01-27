@@ -1,5 +1,8 @@
 package de.jscholz.jminesweeper.minesweeper;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 /**
  * A simple Static-Factory-Pattern which creates a minesweeper game.
  * You can either create a game with predefined difficult settings or a game with custom difficulty settings.
@@ -52,10 +55,65 @@ public final class GameCreator {
      */
     public static final int MAX_MINES_PERCENT = 93;
 
+    private static Supplier<IMinefield> currentGame;
+    private static Supplier<IMinefield> createEasyGame;
+    private static Supplier<IMinefield> createExperiencedGame;
+    private static Supplier<IMinefield> createExpertGame;
+    private static Supplier<IMinefield> createCustomGame;
+    private static int rows;
+    private static int columns;
+    private static int mines;
+
+    static {
+
+        GameCreator.rows = MIN_ROWS;
+        GameCreator.columns = MIN_COLUMNS;
+        GameCreator.mines = MIN_MINES_PERCENT;
+
+        GameCreator.createEasyGame = () -> { return createBeginnerGame(); };
+        GameCreator.createExperiencedGame = () -> { return createExperiencedGame(); };
+        GameCreator.createExpertGame = () -> { return createExpertGame(); };
+        GameCreator.createCustomGame = () -> {
+
+            return new Minefield(GameCreator.rows, GameCreator.columns, GameCreator.mines);
+        };
+
+        GameCreator.currentGame = GameCreator.createEasyGame;
+    }
+
+    public static void setGame(final int width, final int height, final int minesPercent) {
+        GameCreator.rows = ensureRange(width, MIN_ROWS, MAX_ROWS);
+        GameCreator.columns = ensureRange(height, MIN_COLUMNS, MAX_COLUMNS);
+        GameCreator.mines = ensureRange(minesPercent, MIN_MINES_PERCENT, MAX_MINES_PERCENT);
+
+        GameCreator.currentGame = createCustomGame;
+    }
+
+    public static void setGame(final Difficulty difficulty) {
+
+        switch (difficulty) {
+            case EASY:
+                GameCreator.currentGame = GameCreator.createEasyGame;
+                break;
+            case EXPERIENCED:
+                GameCreator.currentGame = GameCreator.createExperiencedGame;
+                break;
+            case EXPERT:
+                GameCreator.currentGame = GameCreator.createExpertGame;
+                break;
+        }
+
+    }
+
+    public static IMinefield createGame() {
+        return GameCreator.currentGame.get();
+    }
+
     /**
      * Creates a game with the difficult setting EASY.
      * @return A beginner minesweeper game.
      */
+    @Deprecated
     public static IMinefield createBeginnerGame() {
         return new Minefield(Difficulty.EASY);
     }
@@ -64,6 +122,7 @@ public final class GameCreator {
      * Creates a game with the difficult setting EXPERIENCED.
      * @return A experienced minesweeper game.
      */
+    @Deprecated
     public static IMinefield createExperiencedGame() {
         return new Minefield(Difficulty.EXPERIENCED);
     }
@@ -72,6 +131,7 @@ public final class GameCreator {
      * Creates a game with the difficult setting EXPERT.
      * @return A expert minesweeper game.
      */
+    @Deprecated
     public static IMinefield createExpertGame() {
         return new Minefield(Difficulty.EXPERT);
     }
@@ -85,6 +145,7 @@ public final class GameCreator {
      * @param minesPercent The percentage of mines inside the minefield.
      * @return A custom minesweeper game.
      */
+    @Deprecated
     public static IMinefield createCustomGame(int rows, int columns, int minesPercent) {
         rows = ensureRange(rows, MIN_ROWS, MAX_ROWS);
         columns = ensureRange(columns, MIN_COLUMNS, MAX_COLUMNS);

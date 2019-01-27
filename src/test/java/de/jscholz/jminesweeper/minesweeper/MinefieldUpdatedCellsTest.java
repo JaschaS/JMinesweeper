@@ -174,13 +174,6 @@ public class MinefieldUpdatedCellsTest {
 
         Assert.assertTrue(cellSet.containsAll(field.values()));
 
-        //We expect that the state of all cells is now open
-        for (final ICell cell : cellSet) {
-
-            Assert.assertEquals(CellState.OPEN, cell.getCellState());
-
-        }
-
         //Make sure game is still running
         final boolean gameOver = minefield.gameOver();
         Assert.assertTrue(gameOver);

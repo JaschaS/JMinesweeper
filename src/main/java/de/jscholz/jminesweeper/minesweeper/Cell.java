@@ -32,6 +32,13 @@ class Cell implements ICell {
      */
     private CellState state;
 
+    private boolean gameOver;
+
+    {
+        this.gameOver = false;
+        this.neighbours = new HashSet<>();
+    }
+
     /**
      * Default-Ctor creates a cell with no neighbours, position (x=0, y=0), content empty and cell state undiscovered.
      */
@@ -57,10 +64,7 @@ class Cell implements ICell {
      * @param position the position of the cell.
      */
     public Cell(final ICellPosition position) {
-        this.position = position;
-        this.neighbours = new HashSet<>();
-        this.content = CellContent.EMPTY;
-        this.state = CellState.UNDISCOVERED;
+        this(position, CellContent.EMPTY, CellState.UNDISCOVERED);
     }
 
     /**
@@ -73,7 +77,6 @@ class Cell implements ICell {
      */
     public Cell(final ICellPosition position, final CellContent content, final CellState state) {
         this.position = position;
-        this.neighbours = new HashSet<>();
         this.content = content;
         this.state = state;
     }
@@ -84,11 +87,10 @@ class Cell implements ICell {
      */
     public Cell(final Cell cell) {
         this.position = new CellPosition(cell.getPosition());
-        this.neighbours = new HashSet<>();
         this.content = cell.getContent();
         this.state = cell.getCellState();
 
-        neighbours.addAll(cell.getNeighbours());
+        this.neighbours.addAll(cell.getNeighbours());
     }
 
     /**
@@ -102,6 +104,7 @@ class Cell implements ICell {
      */
     public void open(final Set<ICell> openedCells) throws NullPointerException {
 
+        // TODO assert
         if(openedCells == null) throw new NullPointerException("Given Set is null");
 
         if(state == CellState.UNDISCOVERED) {
@@ -168,6 +171,8 @@ class Cell implements ICell {
     public void setContent(final CellContent content) {
         this.content = content;
     }
+
+    public void setGameOver(final boolean value) { this.gameOver = value; }
 
     /**
      * <p>Tries to mark the cell as mine. If the content is not already a mine, the content will be set and all
@@ -256,9 +261,9 @@ class Cell implements ICell {
     public CellContent getCellContent() {
 
         /*
-         * Only return the content of the cell when the cell state is open! Otherwise return unknown.
+         * Only return the content of the cell when the cell state is open or the game is over! Otherwise return unknown.
          */
-        if(this.state == CellState.OPEN) {
+        if(this.state == CellState.OPEN || this.gameOver) {
             return this.content;
         }
 

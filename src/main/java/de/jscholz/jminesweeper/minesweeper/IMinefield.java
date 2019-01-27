@@ -11,6 +11,7 @@ public interface IMinefield {
     //TODO Create a sorted visualization field.
     //TODO Double Click method
     //TODO Restart game method
+    //TODO https://stackoverflow.com/questions/1738128/minesweeper-solving-algorithm
 
     /**
      * Flags the cell at the given position or removes the flag from the cell.
@@ -95,10 +96,43 @@ public interface IMinefield {
      *     <li>IS_ALREADY_OPEN, if the cell was already opened.</li>
      *     <li>WAS_FLAGGED, if the cell is flagged.</li>
      *     <li>GAME_CLEARED, if the last cell was successfully opened and the game is now cleared.</li>
-     *     <li>OPEN, if the cell was successfully opened.</li>
+     *     <li>OPEN, if the cell and the neighbourhood was successfully opened.</li>
      * </ul>
      */
     OpenReturn singleClick(final ICellPosition position);
+
+    /**
+     * Opens a cell in the field at the given position and the moore-neighbourhood.
+     *
+     * @param x The x value of the position.
+     * @param y The y value of the position.
+     * @return <ul>
+     *     <li>GAME_IS_ALREADY_OVER, if the game is already over.</li>
+     *     <li>NOT_VALID, if the position was not valid.</li>
+     *     <li>FAILED, if something went wrong.</li>
+     *     <li>IS_ALREADY_OPEN, if the cell was already opened.</li>
+     *     <li>WAS_FLAGGED, if the cell is flagged.</li>
+     *     <li>GAME_CLEARED, if the last cell was successfully opened and the game is now cleared.</li>
+     *     <li>OPEN, if the cell and the neighbourhood was successfully opened.</li>
+     * </ul>
+     */
+    OpenReturn doubleClick(final int x, final int y);
+
+    /**
+     * Opens a cell in the field at the given position and the moore-neighbourhood.
+     *
+     * @param position The position inside the field.
+     * @return <ul>
+     *     <li>GAME_IS_ALREADY_OVER, if the game is already over.</li>
+     *     <li>NOT_VALID, if the position was not valid.</li>
+     *     <li>FAILED, if something went wrong.</li>
+     *     <li>IS_ALREADY_OPEN, if the cell was already opened.</li>
+     *     <li>WAS_FLAGGED, if the cell is flagged.</li>
+     *     <li>GAME_CLEARED, if the last cell was successfully opened and the game is now cleared.</li>
+     *     <li>OPEN, if the cell was successfully opened.</li>
+     * </ul>
+     */
+    OpenReturn doubleClick(final ICellPosition position);
 
     /**
      * Returns the total amount of mines inside the minefield.
