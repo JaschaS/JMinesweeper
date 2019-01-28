@@ -10,7 +10,7 @@ public class MinefieldGetFieldTest {
 
     @Test
     public void getFieldTest() {
-        final IMinefield m = GameCreator.createBeginnerGame();
+        final IMinefield m = null; //GameCreator.createBeginnerGame();
 
         //Get the field for visualisation.
         final Map<ICellPosition, ICell> f = m.getFieldForVisualization();
@@ -50,7 +50,7 @@ public class MinefieldGetFieldTest {
 
     @Test
     public void getFieldForVisualization_CheckSorting_Pass() {
-        final IMinefield m = GameCreator.createBeginnerGame();
+        final IMinefield m = null; //GameCreator.createBeginnerGame();
 
         //Get the field for visualisation.
         final Map<ICellPosition, ICell> f = m.getFieldForVisualization();

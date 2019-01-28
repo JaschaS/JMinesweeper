@@ -26,7 +26,7 @@ public class MinefieldNeighboursTest {
 
         return Arrays.asList(new Object[][]{
                 //Borders
-                { GameCreator.createBeginnerGame(), new CellPosition(0, 1), 5 },   //left first
+                /*{ GameCreator.createBeginnerGame(), new CellPosition(0, 1), 5 },   //left first
                 { GameCreator.createBeginnerGame(), new CellPosition(0, 6), 5 },   //left last
                 { GameCreator.createBeginnerGame(), new CellPosition(7, 1), 5 },   //right first
                 { GameCreator.createBeginnerGame(), new CellPosition(7, 6), 5 },   //right last
@@ -45,7 +45,7 @@ public class MinefieldNeighboursTest {
                 { GameCreator.createBeginnerGame(), new CellPosition(1, 1), 8 },
                 { GameCreator.createBeginnerGame(), new CellPosition(6, 1), 8 },
                 { GameCreator.createBeginnerGame(), new CellPosition(1, 6), 8 },
-                { GameCreator.createBeginnerGame(), new CellPosition(6, 6), 8 },
+                { GameCreator.createBeginnerGame(), new CellPosition(6, 6), 8 },*/
         });
     }
 

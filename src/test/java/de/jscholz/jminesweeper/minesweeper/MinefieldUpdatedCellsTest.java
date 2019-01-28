@@ -15,7 +15,7 @@ public class MinefieldUpdatedCellsTest {
 
     @Before
     public void init() {
-        minefield = (Minefield) GameCreator.createBeginnerGame();
+        minefield = null; //(Minefield) GameCreator.createBeginnerGame();
     }
 
     @Test

@@ -70,9 +70,9 @@ public final class GameCreator {
         GameCreator.columns = MIN_COLUMNS;
         GameCreator.mines = MIN_MINES_PERCENT;
 
-        GameCreator.createEasyGame = () -> { return createBeginnerGame(); };
-        GameCreator.createExperiencedGame = () -> { return createExperiencedGame(); };
-        GameCreator.createExpertGame = () -> { return createExpertGame(); };
+        GameCreator.createEasyGame = () -> { return new Minefield(Difficulty.EASY); };
+        GameCreator.createExperiencedGame = () -> { return new Minefield(Difficulty.EXPERIENCED); };
+        GameCreator.createExpertGame = () -> { return new Minefield(Difficulty.EXPERIENCED); };
         GameCreator.createCustomGame = () -> {
 
             return new Minefield(GameCreator.rows, GameCreator.columns, GameCreator.mines);
@@ -107,51 +107,6 @@ public final class GameCreator {
 
     public static IMinefield createGame() {
         return GameCreator.currentGame.get();
-    }
-
-    /**
-     * Creates a game with the difficult setting EASY.
-     * @return A beginner minesweeper game.
-     */
-    @Deprecated
-    public static IMinefield createBeginnerGame() {
-        return new Minefield(Difficulty.EASY);
-    }
-
-    /**
-     * Creates a game with the difficult setting EXPERIENCED.
-     * @return A experienced minesweeper game.
-     */
-    @Deprecated
-    public static IMinefield createExperiencedGame() {
-        return new Minefield(Difficulty.EXPERIENCED);
-    }
-
-    /**
-     * Creates a game with the difficult setting EXPERT.
-     * @return A expert minesweeper game.
-     */
-    @Deprecated
-    public static IMinefield createExpertGame() {
-        return new Minefield(Difficulty.EXPERT);
-    }
-
-    /**
-     * Creates a custom game with the given properties. If the properties are not valid, the method will clamp the
-     * given values.
-     *
-     * @param columns The amount of columns the minefield should have.
-     * @param rows The amount of rows the minefield should have.
-     * @param minesPercent The percentage of mines inside the minefield.
-     * @return A custom minesweeper game.
-     */
-    @Deprecated
-    public static IMinefield createCustomGame(int rows, int columns, int minesPercent) {
-        rows = ensureRange(rows, MIN_ROWS, MAX_ROWS);
-        columns = ensureRange(columns, MIN_COLUMNS, MAX_COLUMNS);
-        minesPercent = ensureRange(minesPercent, MIN_MINES_PERCENT, MAX_MINES_PERCENT);
-
-        return new Minefield(rows, columns, minesPercent);
     }
 
     /**

@@ -10,7 +10,7 @@ public class MinefieldFlagCellTest {
 
     @Test
     public void flagCellTest() {
-        final Minefield minefield = (Minefield) GameCreator.createBeginnerGame();
+        final Minefield minefield = null; //(Minefield) GameCreator.createBeginnerGame();
 
         //flag cell
         final IMinefield.OpenReturn result = minefield.secondaryClick(0,0);
@@ -29,7 +29,7 @@ public class MinefieldFlagCellTest {
 
     @Test
     public void removeFlagTest() {
-        final Minefield minefield = (Minefield) GameCreator.createBeginnerGame();
+        final Minefield minefield = null; //(Minefield) GameCreator.createBeginnerGame();
 
         //flag cell
         IMinefield.OpenReturn result = minefield.secondaryClick(0,0);
@@ -58,7 +58,7 @@ public class MinefieldFlagCellTest {
 
     @Test
     public void flagCellWhichIsOpenTest() {
-        final Minefield minefield = (Minefield) GameCreator.createBeginnerGame();
+        final Minefield minefield = null; //(Minefield) GameCreator.createBeginnerGame();
 
         final Cell c = getCell(CellContent.ONE, minefield);
         Assert.assertFalse(c == null);
@@ -83,7 +83,7 @@ public class MinefieldFlagCellTest {
 
     @Test
     public void positionNotValidTest() {
-        final Minefield minefield = (Minefield) GameCreator.createBeginnerGame();
+        final Minefield minefield = null; //(Minefield) GameCreator.createBeginnerGame();
 
         //performAction Cell
         IMinefield.OpenReturn result = minefield.secondaryClick(-1, -1);
@@ -97,7 +97,7 @@ public class MinefieldFlagCellTest {
 
     @Test
     public void gameWasAlreadyOverTest() {
-        final Minefield minefield = (Minefield) GameCreator.createBeginnerGame();
+        final Minefield minefield = null; //(Minefield) GameCreator.createBeginnerGame();
 
         final Cell c = getCell(CellContent.MINE, minefield);
         Assert.assertFalse(c == null);

@@ -22,7 +22,7 @@ public class MinefieldValidPositionTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 //Corners
-                { GameCreator.createBeginnerGame(), new CellPosition(0, 0), true },
+               /* { GameCreator.createBeginnerGame(), new CellPosition(0, 0), true },
                 { GameCreator.createBeginnerGame(), new CellPosition(7, 0), true },
                 { GameCreator.createBeginnerGame(), new CellPosition(0, 7), true },
                 { GameCreator.createBeginnerGame(), new CellPosition(7, 7), true },
@@ -34,7 +34,7 @@ public class MinefieldValidPositionTest {
                 { GameCreator.createBeginnerGame(), new CellPosition(0, 8), false },
                 { GameCreator.createBeginnerGame(), new CellPosition(-1, -1), false },
                 { GameCreator.createBeginnerGame(), new CellPosition(8, 8), false },
-                { GameCreator.createBeginnerGame(), null, false }
+                { GameCreator.createBeginnerGame(), null, false }*/
         });
     }
 

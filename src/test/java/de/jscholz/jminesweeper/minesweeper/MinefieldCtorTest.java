@@ -10,7 +10,7 @@ public class MinefieldCtorTest {
 
     @Test
     public void minesNumberTest() {
-        final Minefield field = (Minefield) GameCreator.createBeginnerGame();
+        final Minefield field = null; //(Minefield) GameCreator.createBeginnerGame();
         final Map<ICellPosition, Cell> f = field.getOriginalField();
 
         int amount = 10;
@@ -23,7 +23,7 @@ public class MinefieldCtorTest {
 
     @Test
     public void checkNeighbourNumberTest() {
-        final Minefield field = (Minefield) GameCreator.createBeginnerGame();
+        final Minefield field = null; //(Minefield) GameCreator.createBeginnerGame();
         final Map<ICellPosition, Cell> f = field.getOriginalField();
 
         for(final Cell c : f.values()) {

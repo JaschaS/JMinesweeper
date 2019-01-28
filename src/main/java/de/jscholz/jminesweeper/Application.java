@@ -1,9 +1,6 @@
 package de.jscholz.jminesweeper;
 
-import de.jscholz.jminesweeper.minesweeper.GameCreator;
-import de.jscholz.jminesweeper.minesweeper.ICell;
-import de.jscholz.jminesweeper.minesweeper.ICellPosition;
-import de.jscholz.jminesweeper.minesweeper.IMinefield;
+import de.jscholz.jminesweeper.minesweeper.*;
 
 import java.util.*;
 
@@ -14,7 +11,8 @@ public class Application {
     public static void main(final String[] args) {
 
         // Get a minefield from the factory pattern.
-        final IMinefield minefieldGame = GameCreator.createBeginnerGame();
+        GameCreator.setGame(Difficulty.EASY);
+        final IMinefield minefieldGame = GameCreator.createGame();
 
         // Get the visible field
         final Map<ICellPosition, ICell> field = minefieldGame.getFieldForVisualization();
