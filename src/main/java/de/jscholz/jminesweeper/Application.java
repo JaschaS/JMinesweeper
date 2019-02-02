@@ -11,7 +11,7 @@ public class Application {
     public static void main(final String[] args) {
 
         // Get a minefield from the factory pattern.
-        GameCreator.setGame(Difficulty.EASY);
+        GameCreator.setDifficulty(Difficulty.EASY);
         final IMinefield minefieldGame = GameCreator.createGame();
 
         // Get the visible field

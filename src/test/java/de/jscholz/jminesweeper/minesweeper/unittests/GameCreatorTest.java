@@ -1,35 +1,37 @@
 package de.jscholz.jminesweeper.minesweeper.unittests;
 
+import de.jscholz.jminesweeper.minesweeper.Difficulty;
 import de.jscholz.jminesweeper.minesweeper.GameCreator;
-import de.jscholz.jminesweeper.minesweeper.IMinefield;
-import org.junit.Assert;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class GameCreatorTest {
 
+    @Test
+    public void GameCreator_SetDifficultyLeveL_IsEasyWhenSetToEasy() {
+        GameCreator.setDifficulty(Difficulty.EASY);
 
-    @ParameterizedTest(name = "[{index}] create {0}, expects mines={2}, rows={3}, cols={4}")
-    @MethodSource("minefieldProvider")
-    public void createGameTest(final String testName,
-                               final IMinefield field,
-                               final int expectedMines,
-                               final int expectedRows,
-                               final int expectedCols) {
-
-        Assert.assertEquals(expectedMines, field.getTotalMines());
-        Assert.assertEquals(expectedRows, field.getRows());
-        Assert.assertEquals(expectedCols, field.getColumns());
-
+        Assertions.assertEquals(Difficulty.EASY, GameCreator.getCurrentDifficulty());
     }
 
-    private static Stream<Arguments> minefieldProvider() {
-        return Stream.of(
-                //Arguments.of("Beginner-Game", GameCreator.createBeginnerGame(), 10, 8, 8)
-        );
+    @Test
+    public void GameCreator_SetDifficultyLeveL_IsExperiencedWhenSetToExperienced() {
+        GameCreator.setDifficulty(Difficulty.EXPERIENCED);
+
+        Assertions.assertEquals(Difficulty.EXPERIENCED, GameCreator.getCurrentDifficulty());
     }
 
+    @Test
+    public void GameCreator_SetDifficultyLeveL_IsExpertWhenSetToExpert() {
+        GameCreator.setDifficulty(Difficulty.EXPERT);
+
+        Assertions.assertEquals(Difficulty.EXPERT, GameCreator.getCurrentDifficulty());
+    }
+
+    @Test
+    public void GameCreator_SetDifficultyLeveL_IsCustomWhenSetToCustom() {
+        GameCreator.setDifficulty(Difficulty.CUSTOM);
+
+        Assertions.assertEquals(Difficulty.CUSTOM, GameCreator.getCurrentDifficulty());
+    }
 }

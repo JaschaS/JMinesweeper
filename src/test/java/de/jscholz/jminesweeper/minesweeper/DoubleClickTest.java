@@ -16,8 +16,8 @@ public class DoubleClickTest {
     @Before
     public void init() {
 
-        GameCreator.setGame(Difficulty.EASY);
-        minefield = (Minefield) GameCreator.createGame();
+        //GameCreator.setGame(Difficulty.EASY);
+        minefield = null;//(Minefield) GameCreator.createGame();
     }
 
     /**
