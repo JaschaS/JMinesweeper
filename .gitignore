@@ -10,3 +10,4 @@ target/*
 
 # Ignore iml files
 *.iml
+JMinesweeper.iml
