@@ -1,7 +1,5 @@
 package de.jscholz.jminesweeper.minesweeper;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.function.Supplier;
 
 /**
