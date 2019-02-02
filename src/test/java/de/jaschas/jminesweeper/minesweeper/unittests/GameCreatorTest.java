@@ -1,7 +1,7 @@
-package de.jscholz.jminesweeper.minesweeper.unittests;
+package de.jaschas.jminesweeper.minesweeper.unittests;
 
-import de.jscholz.jminesweeper.minesweeper.Difficulty;
-import de.jscholz.jminesweeper.minesweeper.GameCreator;
+import de.jaschas.jminesweeper.minesweeper.Difficulty;
+import de.jaschas.jminesweeper.minesweeper.GameCreator;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 

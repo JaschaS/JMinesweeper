@@ -1,5 +1,8 @@
-package de.jscholz.jminesweeper;
+package de.jaschas.jminesweeper;
 
+import de.jaschas.jminesweeper.minesweeper.Difficulty;
+import de.jaschas.jminesweeper.minesweeper.GameCreator;
+import de.jaschas.jminesweeper.minesweeper.IMinefield;
 import de.jscholz.jminesweeper.minesweeper.*;
 
 import java.util.*;

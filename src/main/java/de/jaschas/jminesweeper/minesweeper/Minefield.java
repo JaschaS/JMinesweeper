@@ -1,4 +1,4 @@
-package de.jscholz.jminesweeper.minesweeper;
+package de.jaschas.jminesweeper.minesweeper;
 
 /**
  * <p>The implementation of the IMinefield. It will represent the game board of this game. The board holds all cells and

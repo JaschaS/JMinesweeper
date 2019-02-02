@@ -1,4 +1,4 @@
-package de.jscholz.jminesweeper.minesweeper;
+package de.jaschas.jminesweeper.minesweeper;
 
 import java.util.function.Supplier;
 

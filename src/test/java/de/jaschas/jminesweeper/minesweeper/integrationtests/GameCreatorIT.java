@@ -1,8 +1,8 @@
-package de.jscholz.jminesweeper.minesweeper.integrationtests;
+package de.jaschas.jminesweeper.minesweeper.integrationtests;
 
-import de.jscholz.jminesweeper.minesweeper.Difficulty;
-import de.jscholz.jminesweeper.minesweeper.GameCreator;
-import de.jscholz.jminesweeper.minesweeper.IMinefield;
+import de.jaschas.jminesweeper.minesweeper.Difficulty;
+import de.jaschas.jminesweeper.minesweeper.IMinefield;
+import de.jaschas.jminesweeper.minesweeper.GameCreator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

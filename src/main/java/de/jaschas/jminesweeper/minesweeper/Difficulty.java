@@ -1,4 +1,4 @@
-package de.jscholz.jminesweeper.minesweeper;
+package de.jaschas.jminesweeper.minesweeper;
 
 /**
  * All predefined difficulty settings for the minesweeper game.
